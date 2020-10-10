@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+    ViewBag.Title = "Login";
+
+
+}
+
+<div class="o-page__card" style="margin-top:-50px;">
+    <div class="c-card--responsive u-mb-small" style="background-color:#fff">
+        <header class="c-card__header u-pt-large" style="background-color:#222c3c">
+            <h1 class="u-h3 u-text-center u-mb-zero" style="color:white;font-family: HomeTown,serif;">Sistema de Encuestas</h1>
+        </header>
+
+        <form class="c-card__body formAjax" method="post" action="~/Acceso/Login" style="height:400px">
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="input1">Usuario</label>
+                <input class="c-input" type="text" id="Usuario" required="required" name="Usuario" placeholder="nombre de usuario">
+            </div>
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="input2">Contraseña</label>
+                <input class="c-input" type="password" id="password" required="required" name="password" placeholder="*****">
+            </div>
+            <div class="c-field u-mb-small">
+                <input name="recordar" id="recordar" type="checkbox" value="true" /> <label class="c-field__label" for="recordar">Recordar</label>
+            </div>
+            <button class="c-btn--fullwidth btnAjax" type="submit" style="height:45px;background-color:#222c3c;border: 1px solid;border-radius: 4px;">
+                <p style="color:white;font-family: Coolvetica Rg,sans-serif;">Entrar</p>
+                <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
+            </button>
+            <div style="margin-top: 20px;">
+                <div style="min-height: 1px;position: relative">
+                    <div style="position: relative;line-height: 30px;zoom: 1;">
+                        <a class="u-float-left text-center" href="~/Account/Registrarme" style="font-family: Coolvetica Rg,sans-serif;font-size: 14px;">Registraste</a>
+                        <a class="u-float-right text-center" href="~/Account/RecuperarCuenta" style="font-family: Coolvetica Rg,sans-serif;font-size: 14px">Olvidaste tu contraseña</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>

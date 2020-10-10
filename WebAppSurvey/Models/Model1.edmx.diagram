@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9b0dd3ab64ce4051bb1b6a1389a6ebf9" Name="Diagram1">
+        <EntityTypeShape EntityType="SistemaEncuestasModel.Areas" Width="1.5" PointX="3.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaEncuestasModel.Categorias" Width="1.5" PointX="3.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaEncuestasModel.Coordinadores" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaEncuestasModel.DetalleEncuesta" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaEncuestasModel.DetalleResultado" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaEncuestasModel.Encuestados" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaEncuestasModel.Encuestas" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaEncuestasModel.Preguntas" Width="1.5" PointX="6" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaEncuestasModel.Respuestas" Width="1.5" PointX="8.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaEncuestasModel.Resultados" Width="1.5" PointX="6" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaEncuestasModel.Usuarios" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <AssociationConnector Association="SistemaEncuestasModel.FK_Categorias_Areas" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaEncuestasModel.FK_DetalleEncuesta_Areas" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaEncuestasModel.FK_DetalleEncuesta_Categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaEncuestasModel.FK_Coordinadores_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaEncuestasModel.FK_DetalleEncuesta_Encuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaEncuestasModel.FK_DetalleResultado_Resultados" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaEncuestasModel.FK_Encuestados_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaEncuestasModel.FK_Preguntas_Encuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaEncuestasModel.FK_Resultados_Encuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaEncuestasModel.FK_Respuestas_Preguntas" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaEncuestasModel.FK_Resultados_Usuarios" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

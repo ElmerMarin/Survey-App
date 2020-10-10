@@ -1,0 +1,251 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string Nombre = ViewBag.Usuario;
+}
+
+
+@if (HttpContext.Current.Session["TipoUsuario"].Equals("Administrador") || HttpContext.Current.Session["TipoUsuario"].Equals("Psicologo"))
+{
+    <div class="row">
+        <div class="col-sm-12 col-lg-6 col-xl-3">
+            <div class="c-state-card" data-mh="state-cards">
+                <div class="c-state-card__icon c-state-card__icon--info">
+                    <i class="fa fa-line-chart"></i>
+                </div>
+                <div class="c-state-card__content">
+                    <h5 class="c-state-card__number">
+                        5
+                        <span class="c-state-card__status u-bg-green">
+                            <i class="fa fa-caret-up"></i>
+                        </span>
+                    </h5>
+                    <p><a href="~/Diagnostico" class="c-state-card__meta">Encuestas</a></p>
+                </div>
+            </div>
+        </div><!-- // .col-md-3 -->
+        <div class="col-sm-12 col-lg-6 col-xl-3">
+            <div class="c-state-card" data-mh="state-cards">
+                <div class="c-state-card__icon c-state-card__icon--fancy">
+                    <i class="fa fa-pie-chart"></i>
+                </div>
+                <div class="c-state-card__content">
+                    <h5 class="c-state-card__number">
+                        3
+                        <span class="c-state-card__status u-bg-green">
+                            <i class="fa fa-caret-up"></i>
+                        </span>
+                    </h5>
+                    <p><a href="~/Citas" class="c-state-card__meta">Preguntas</a></p>
+                </div>
+            </div>
+        </div><!-- // .col-md-3 -->
+        <div class="col-sm-12 col-lg-6 col-xl-3">
+            <div class="c-state-card" data-mh="state-cards">
+                <div class="c-state-card__icon c-state-card__icon--warning">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="c-state-card__content">
+                    <h5 class="c-state-card__number">
+                        6
+                        <span class="c-state-card__status u-bg-red">
+                            <i class="fa fa-caret-down"></i>
+                        </span>
+                    </h5>
+                    <p><a href="~/Pacientes" class="c-state-card__meta">Respuestas</a></p>
+                </div>
+            </div>
+        </div><!-- // .col-md-3 -->
+        <div class="col-sm-12 col-lg-6 col-xl-3">
+            <div class="c-state-card" data-mh="state-cards">
+                <div class="c-state-card__icon c-state-card__icon--success">
+                    <i class="fa fa-bar-chart"></i>
+                </div>
+                <div class="c-state-card__content">
+                    <h5 class="c-state-card__number">
+                        2
+                        <span class="c-state-card__status u-bg-green">
+                            <i class="fa fa-caret-up"></i>
+                        </span>
+                    </h5>
+                    <p><a href="~/Historias" class="c-state-card__meta">Encuestados</a></p>
+                </div>
+            </div>
+        </div><!-- // .col-md-3 -->
+    </div><!-- // .row -->
+}
+@if (HttpContext.Current.Session["TipoUsuario"].Equals("Paciente"))
+{
+    <div class="row">
+        <div class="col-sm-12 col-lg-6 col-xl-6">
+            <div class="c-state-card" data-mh="state-cards">
+                <div class="c-state-card__icon c-state-card__icon--fancy">
+                    <i class="fa fa-pie-chart"></i>
+                </div>
+                <div class="c-state-card__content">
+                    <h5 class="c-state-card__number">
+                        
+                        <span class="c-state-card__status u-bg-green">
+                            <i class="fa fa-caret-up"></i>
+                        </span>
+                    </h5>
+                    <p><a href="~/Citas" class="c-state-card__meta">Citas</a></p>
+                </div>
+            </div>
+        </div><!-- // .col-md-3 -->
+        <div class="col-sm-12 col-lg-6 col-xl-6">
+            <div class="c-state-card" data-mh="state-cards">
+                <div class="c-state-card__icon c-state-card__icon--success">
+                    <i class="fa fa-bar-chart"></i>
+                </div>
+                <div class="c-state-card__content">
+                    <h5 class="c-state-card__number">
+                        Test
+                        <span class="c-state-card__status u-bg-green">
+                            <i class="fa fa-caret-up"></i>
+                        </span>
+                    </h5>
+                    <p><a href="~/TestMillon" class="c-state-card__meta">Test</a></p>
+                </div>
+            </div>
+        </div><!-- // .col-md-3 -->
+    </div><!-- // .row -->
+    <!-- // .row -->
+}
+<div class="row">
+
+    <div class="col-xl-4">
+        <!-- Cards below rely on utilities (u-) as they are highly customizable -->
+
+
+    </div>
+</div><!-- // .row -->
+
+<div class="c-modal c-modal--large modal fade ocultarDespues2" id="modal32" tabindex="-1" role="dialog" aria-labelledby="modal32" data-backdrop="static">
+    <div class="c-modal__dialog modal-dialog" role="document">
+        <div class="c-modal__content">
+            <div class="c-modal__header u-bg-primary">
+                <h3 class="c-modal__title">Editar Perfil</h3>
+                <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-close"></i>
+                </span>
+            </div>
+            <div class="c-modal__body">
+                <form class="c-card__body formAjax2" method="post" action="~/Users/Add">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Dni">Dni</label>
+                                <input class="c-input" type="text" id="DniUsu" required="required" name="Dni" placeholder="Dni">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Nombres">Nombres</label>
+                                <input class="c-input" type="text" id="NombresUsu" required="required" name="Nombres" placeholder="Nombres">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Apaterno">Apellido Paterno</label>
+                                <input class="c-input" type="text" id="ApellidoPaterno" required="required" name="ApellidoPaterno" placeholder="ApellidoPaterno">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="ApellidoMaterno">Apellido Materno</label>
+                                <input class="c-input" type="text" id="ApellidoMaterno" required="required" name="ApellidoMaterno" placeholder="ApellidoMaterno">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="Direccion">Direccion</label>
+                            <input class="c-input" type="text" id="DireccionUsu" required="required" name="Direccion" placeholder="Direccion">
+                        </div>
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="NombreUsuario">Nombre Usuario</label>
+                            <input class="c-input" type="text" id="NombreUsuario" required="required" name="NombreUsuario" placeholder="Usuario">
+                        </div>
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="TipoUsuario">Tipo de Usuario</label>
+                            <select name="TipoUsuario" class="c-input" id="TipoUsuario">
+                                <!-- Opciones de la lista -->
+                                <option value="Paciente">Paciente</option>
+                                <option value="Psicologo">Psicologo</option>
+                                <option value="Administrador" selected>Administrador</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="Edad">Edad</label>
+                            <input class="c-input" type="text" id="EdadUsu" required="required" name="Edad" placeholder="Edad">
+                        </div>
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="Sexo">Sexo</label>
+                            <select name="Sexo" class="c-input" id="SexoUsu">
+                                <!-- Opciones de la lista -->
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino" selected>Femenino</option>
+                            </select>
+                        </div>
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="Profesion">Profesion</label>
+                            <input class="c-input" type="text" id="ProfesionUsu" required="required" name="Profesion" placeholder="Profesion">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="Profesion">Fecha Nacimiento</label>
+                            <div class="c-field has-addon-left">
+                                <span class="c-field__addon"><i class="fa fa-calendar"></i></span>
+                                <label class="c-field__label u-hidden-visually" for="FechaNacimiento">Disabled Input</label>
+                                <input class="c-input" data-toggle="datepicker" id="FechaNacimientoUsu" type="text" name="FechaNacimiento" placeholder="Focus to open caleendar">
+                            </div>
+                        </div>
+
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="Correo">Correo electrónico</label>
+                            <input class="c-input" type="text" id="CorreoUsu" required="required" name="Correo" placeholder="clark@dashboard.com">
+                        </div>
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="telefono">Telefono</label>
+                            <input class="c-input" type="text" id="Telefono" required="required" name="Telefono" placeholder="Telefono">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="c-field u-mb-small col-6">
+                            <label class="c-field__label" for="input2">Contraseña</label>
+                            <input class="c-input" type="password" id="ContraseñaUsu" required="required" name="Contraseña" placeholder="*****">
+                        </div>
+                        <div class="c-field u-mb-small col-6">
+                            <label class="c-field__label" for="input2">Repetir Contraseña</label>
+                            <input class="c-input" type="password" id="re-ContraseñaUsu" required="required" EqualTo="#ContraseñaUsu" placeholder="*****">
+                        </div>
+                        <input type="hidden" name="IdUsuario" id="IdUsuario2" />
+                    </div>
+                    <div class="u-text-right">
+                        <button class="c-btn c-btn--info c-btn btnAjax2" type="submit">
+                            Guardar
+                            <img src="~/Content/img/load.gif" class="loadingAjax2" style="display:none" />
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div><!-- // .c-modal__content -->
+    </div><!-- // .c-modal__dialog -->
+</div>
+
+
+@section scripts{
+    <script src='~/Content/Calendar/js/utils.js'></script>
+    <script src='~/Content/Calendar/js/Chart.min.js'></script>
+
+    <script src="~/Content/js/custom.js"></script>
+
+}
