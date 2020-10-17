@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Model;
+using System;
 using System.Web;
 using System.Web.Mvc;
 using WebAppSurvey.Controllers;
@@ -8,7 +7,7 @@ using WebAppSurvey.Models;
 
 namespace WebAppSurvey.Filters
 {
-    public class VerificarSession:ActionFilterAttribute
+    public class VerificarSession : ActionFilterAttribute
     {
         private Usuarios usuarios;
 
@@ -34,7 +33,7 @@ namespace WebAppSurvey.Filters
             catch (Exception)
             {
 
-                filterContext.Result=new RedirectResult("~/Acceso/Login");
+                filterContext.Result = new RedirectResult("~/Acceso/Login");
             }
 
 

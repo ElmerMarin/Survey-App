@@ -1,12 +1,10 @@
-﻿
+﻿using Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Security;
 using WebAppSurvey.Models;
 
-namespace WebAppSurvey.Controllers
+namespace WebAppSurvey.Helpers
 {
     public class SessionHelper
     {
@@ -54,7 +52,7 @@ namespace WebAppSurvey.Controllers
             HttpContext.Current.Session["Contraseña"] = Usuario.Contraseña;
         }
 
-        public static void ActualizarSessionEncuestadosUser(Usuarios Usuario,Encuestados Encuestado)
+        public static void ActualizarSessionEncuestadosUser(Usuarios Usuario, Encuestados Encuestado)
         {
             HttpContext.Current.Session["Usuario_Id"] = Usuario.Id;
             HttpContext.Current.Session["TipoUsuario"] = Usuario.TipoUsuario;
@@ -68,7 +66,7 @@ namespace WebAppSurvey.Controllers
             HttpContext.Current.Session["ApellidoMaterno"] = Encuestado.ApellidoMaterno;
         }
 
-        public static void ActualizarSessionAdmin(Usuarios Usuario,Coordinadores admin)
+        public static void ActualizarSessionAdmin(Usuarios Usuario, Coordinadores admin)
         {
             HttpContext.Current.Session["Usuario_Id"] = Usuario.Id;
             HttpContext.Current.Session["TipoUsuario"] = Usuario.TipoUsuario;

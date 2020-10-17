@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebAppSurvey.Models
+namespace Model
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entidades : DbContext
+    public partial class SystemEncuestas : DbContext
     {
-        public Entidades()
-            : base("name=Entidades")
+        public SystemEncuestas()
+            : base("name=SystemEncuestas")
         {
         }
     

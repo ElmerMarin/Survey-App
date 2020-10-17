@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Registrarme";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+
+<body>
+
+    <div class="o-page__card--horizontal" style="margin-top:-70px">
+        <div class="c-card--responsive u-mb-small" style="background-color:#fff">
+            <header class="c-card__header" style="background-color:#222c3c">
+                <h1 class="u-h3 u-text-center u-mb-zero" style="color:white;font-family: HomeTown,serif;">Sistema de Encuestas</h1>
+            </header>
+
+            <form class="c-card__body formAjax" method="post" action="~/Acceso/Registrarme">
+                <div class="row">
+                    <div class="c-field u-mb-small col-4">
+                        <label class="c-field__label" for="Dni">Dni</label>
+                        <input class="c-input" type="text" id="Dni" required="required" name="Dni" placeholder="Dni">
+                    </div>
+                    <div class="c-field u-mb-small col-4">
+                        <label class="c-field__label" for="Nombres">Nombres</label>
+                        <input class="c-input" type="text" id="Nombres" required="required" name="Nombres" placeholder="Nombres">
+                    </div>
+                    <div class="c-field u-mb-small col-4">
+                        <label class="c-field__label" for="Apaterno">Apellido Paterno</label>
+                        <input class="c-input" type="text" id="Apaterno" required="required" name="Apaterno" placeholder="ApellidoPaterno">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="c-field u-mb-small col-4">
+                        <label class="c-field__label" for="Amaterno">Apellido Materno</label>
+                        <input class="c-input" type="text" id="Amaterno" required="required" name="Amaterno" placeholder="ApellidoMaterno">
+                    </div>
+                    <div class="c-field u-mb-small col-4">
+                        <label class="c-field__label" for="Direccion">Direccion</label>
+                        <input class="c-input" type="text" id="Direccion" required="required" name="Direccion" placeholder="Direccion">
+                    </div>
+                    <div class="c-field u-mb-small col-4">
+                        <label class="c-field__label" for="NombreUsu">Nombre Usuario</label>
+                        <input class="c-input" type="text" id="NombreUsu" required="required" name="NombreUsu" placeholder="Usuario">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="c-field u-mb-small col-4">
+                        <label class="c-field__label" for="Edad">Edad</label>
+                        <input class="c-input" type="text" id="Edad" required="required" name="Edad" placeholder="Edad">
+                    </div>
+
+                    <div class="c-field u-mb-small col-4">
+                        <label class="c-field__label" for="Sexo">Sexo</label>
+                        <select name="Sexo" class="c-select select2-hidden-accessible" id="Sexo">
+                            <!-- Opciones de la lista -->
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino" selected>Femenino</option>
+                        </select>
+                    </div>
+                    <div class="c-field u-mb-small col-4">
+                        <label class="c-field__label" for="telefono">Telefono</label>
+                        <input class="c-input" type="text" id="telefono" required="required" name="telefono" placeholder="Telefono">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="c-field u-mb-small col-4">
+                        <label class="c-field__label" for="correo">Correo</label>
+                        <input class="c-input" type="email" id="correo" required="required" name="correo" placeholder="clark@dashboard.com">
+                    </div>
+                    <div class="c-field u-mb-small col-4">
+                        <label class="c-field__label" for="input2">Contraseña</label>
+                        <input class="c-input" type="password" id="contraseña" required="required" name="contraseña" placeholder="*****">
+                    </div>
+                    <div class="c-field u-mb-small col-4">
+                        <label class="c-field__label" for="input2">Repetir Contraseña</label>
+                        <input class="c-input" type="password" id="re-contraseña" required="required" EqualTo="#contraseña" placeholder="*****">
+                    </div>
+                </div>
+                <div class="u-text-center">
+                    <button class="c-btn c-btn--primary c-btn btnAjax c-btn--large" type="submit">
+                        Registrar
+                        <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
+                    </button>
+                    <div class="o-page">
+                        <a class="u-text-mute u-text-small" href="~/Acceso/Login">Entrar al sistema</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+
+
+

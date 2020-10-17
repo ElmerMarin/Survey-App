@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
 using System.Web;
 
-namespace WebAppSurvey.Controllers
+namespace WebAppSurvey.Helpers
 {
     public class ToolsHelper
     {
@@ -24,7 +22,7 @@ namespace WebAppSurvey.Controllers
                 var smtp = new SmtpClient()
                 {
                     Credentials = new System.Net.NetworkCredential("eimdc90@gmail.com", "algoritmos"),
-                    Host= "smtp.gmail.com",
+                    Host = "smtp.gmail.com",
                     Port = 587,
                     EnableSsl = true
                 };

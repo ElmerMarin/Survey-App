@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9b0dd3ab64ce4051bb1b6a1389a6ebf9" Name="Diagram1">
+      <Diagram DiagramId="8b6aa6793faa4c54adb73266c0c67ff7" Name="Diagram1">
         <EntityTypeShape EntityType="SistemaEncuestasModel.Areas" Width="1.5" PointX="3.75" PointY="13.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SistemaEncuestasModel.Categorias" Width="1.5" PointX="3.75" PointY="17.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SistemaEncuestasModel.Coordinadores" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />

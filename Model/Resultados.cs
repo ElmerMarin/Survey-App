@@ -7,28 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebAppSurvey.Models
+namespace Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Areas
+    public partial class Resultados
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Areas()
+        public Resultados()
         {
-            this.Categorias = new HashSet<Categorias>();
-            this.DetalleEncuesta = new HashSet<DetalleEncuesta>();
+            this.DetalleResultado = new HashSet<DetalleResultado>();
         }
     
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public string Estado { get; set; }
+        public int IdEncuesta { get; set; }
+        public int IdUsuario { get; set; }
+        public int IdDetalleResultado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Categorias> Categorias { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalleEncuesta> DetalleEncuesta { get; set; }
+        public virtual ICollection<DetalleResultado> DetalleResultado { get; set; }
+        public virtual Encuestas Encuestas { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

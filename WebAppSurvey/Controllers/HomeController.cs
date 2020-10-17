@@ -1,30 +1,46 @@
-﻿using System;
+﻿
+using WebAppSurvey.Attributes;
+using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebAppSurvey.Helpers;
 
 namespace WebAppSurvey.Controllers
 {
+
+    
     public class HomeController : Controller
-    {
+    {      
+        // GET: Home
+        
         public ActionResult Index()
         {
-            return View();
+
+            SystemEncuestas db = new SystemEncuestas();
+
+            if (HttpContext.Session["TipoUsuario"] == null)
+            {
+                return RedirectToAction("Login", "Acceso");
+
+            }
+            else
+            {
+                
+                var objResult = db.Usuarios.ToList();
+                return View(objResult);
+            }
+
+
         }
 
-        public ActionResult About()
+        public ActionResult Cerrar()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            SessionHelper.DestroyUserSession();
+            HttpContext.Session["TipoUsuario"] = null;
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -585,7 +585,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entidades" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SystemEncuestas" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Areas" EntityType="Self.Areas" />
           <EntitySet Name="Categorias" EntityType="Self.Categorias" />
           <EntitySet Name="Coordinadores" EntityType="Self.Coordinadores" />
@@ -647,7 +647,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SistemaEncuestasModelStoreContainer" CdmEntityContainer="Entidades">
+        <EntityContainerMapping StorageEntityContainer="SistemaEncuestasModelStoreContainer" CdmEntityContainer="SystemEncuestas">
           <EntitySetMapping Name="Areas">
             <EntityTypeMapping TypeName="SistemaEncuestasModel.Areas">
               <MappingFragment StoreEntitySet="Areas">
