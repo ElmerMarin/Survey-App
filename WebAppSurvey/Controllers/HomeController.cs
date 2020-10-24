@@ -11,11 +11,11 @@ using WebAppSurvey.Helpers;
 namespace WebAppSurvey.Controllers
 {
 
-    
+    [Autenticado]
     public class HomeController : Controller
-    {      
+    {
         // GET: Home
-        
+        [Authorize]
         public ActionResult Index()
         {
 
@@ -40,7 +40,7 @@ namespace WebAppSurvey.Controllers
         {
             SessionHelper.DestroyUserSession();
             HttpContext.Session["TipoUsuario"] = null;
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login","Acceso");
         }
     }
 }

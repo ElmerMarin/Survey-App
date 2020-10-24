@@ -52,6 +52,12 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -143,6 +149,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\AutenticadoAttribute.cs" />
     <Compile Include="Controllers\AccesoController.cs" />
+    <Compile Include="Controllers\ApiRestController.cs" />
     <Compile Include="Controllers\AreasController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\EncuestasController.cs" />
@@ -325,6 +332,7 @@
     <Content Include="Content\js\jquery.plugins.js" />
     <Content Include="Content\js\main.js" />
     <Content Include="Content\js\main.min.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\scripts\bootstrap.js" />
     <Content Include="Content\scripts\bootstrap.min.js" />
     <None Include="Content\scripts\jquery-1.10.2.intellisense.js" />
@@ -424,9 +432,11 @@
     <Content Include="Views\Respuestas\Details.cshtml" />
     <Content Include="Views\Respuestas\Edit.cshtml" />
     <Content Include="Views\Respuestas\Index.cshtml" />
+    <Content Include="Views\Encuestas\GenerarEncuesta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Encuesta\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -446,7 +456,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{35c9d873-14a5-42c2-b866-29ec5d259dde}</Project>
+      <Project>{fd3d28ca-1297-4284-bc1f-16efa4563f41}</Project>
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>

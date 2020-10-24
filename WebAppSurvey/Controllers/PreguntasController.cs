@@ -10,6 +10,7 @@ using Model;
 
 namespace WebAppSurvey.Controllers
 {
+    [Authorize]
     public class PreguntasController : Controller
     {
         private SystemEncuestas db = new SystemEncuestas();
@@ -45,9 +46,10 @@ namespace WebAppSurvey.Controllers
         }
 
         // GET: Preguntas/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.IdEncuesta = new SelectList(db.Encuestas, "Id", "Titulo");
+            var encuestas = db.Encuestas.Where(c => c.Id == id);
+            ViewBag.IdEncuesta = new SelectList(encuestas, "Id", "Titulo");
             return View();
         }
 
@@ -56,7 +58,7 @@ namespace WebAppSurvey.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Descripcion,Estado,IdEncuesta")] Preguntas preguntas,int id)
+        public ActionResult Create([Bind(Include = "Id,Descripcion,Estado,IdEncuesta")] Preguntas preguntas,int? id)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +98,7 @@ namespace WebAppSurvey.Controllers
             {
                 db.Entry(preguntas).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Preguntas", new { d = preguntas.IdEncuesta });
             }
             ViewBag.IdEncuesta = new SelectList(db.Encuestas, "Id", "Titulo", preguntas.IdEncuesta);
             return View(preguntas);
@@ -125,12 +127,11 @@ namespace WebAppSurvey.Controllers
             Preguntas preguntas = db.Preguntas.Find(id);
             db.Preguntas.Remove(preguntas);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Preguntas", new { d = preguntas.IdEncuesta });
         }
 
         public ActionResult Respuestas(int? id)
         {
-
             var preguntas = db.Respuestas.Include(p => p.Preguntas).Where(p => p.IdPregunta == id);
             if (preguntas == null)
             {

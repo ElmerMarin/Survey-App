@@ -18,8 +18,8 @@ namespace Model
         public Encuestas()
         {
             this.DetalleEncuesta = new HashSet<DetalleEncuesta>();
+            this.DetalleResultado = new HashSet<DetalleResultado>();
             this.Preguntas = new HashSet<Preguntas>();
-            this.Resultados = new HashSet<Resultados>();
         }
     
         public int Id { get; set; }
@@ -30,8 +30,8 @@ namespace Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleEncuesta> DetalleEncuesta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Preguntas> Preguntas { get; set; }
+        public virtual ICollection<DetalleResultado> DetalleResultado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Resultados> Resultados { get; set; }
+        public virtual ICollection<Preguntas> Preguntas { get; set; }
     }
 }

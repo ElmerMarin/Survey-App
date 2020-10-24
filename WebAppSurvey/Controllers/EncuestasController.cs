@@ -10,6 +10,7 @@ using Model;
 
 namespace WebAppSurvey.Controllers
 {
+    [Authorize]
     public class EncuestasController : Controller
     {
         private SystemEncuestas db = new SystemEncuestas();
@@ -125,6 +126,71 @@ namespace WebAppSurvey.Controllers
                 return RedirectToAction("Index","Preguntas");
             }
             return RedirectToAction("Index","Preguntas", new { d=id });
+
+        }
+
+
+        public ActionResult GenerarEncuesta(int? id)
+        {
+
+            List<int> respuestas=new List<int>();
+            List<int> ides = new List<int>();
+            var respuestasfinales =0;
+            var preguntas = db.Preguntas.Where(p => p.IdEncuesta == id).ToList();
+            for (int i = 0; i < preguntas.Count; i++)
+            {
+                int idpregunta = preguntas[i].Id;
+                var resultado = db.Respuestas.Where(p => p.IdPregunta ==idpregunta).ToList();
+                for (int j = 0; j < resultado.Count; j++)
+                {
+                    respuestasfinales = resultado[j].Id;
+                    respuestas.Add(respuestasfinales);
+                   
+                }
+                ides.Add(preguntas[i].Id);
+            }
+            ViewBag.respuestas = respuestas;
+            ViewBag.preguntas = preguntas;
+            ViewBag.idEncuesta = id;
+
+            if (preguntas == null)
+            {
+                return RedirectToAction("Error", "Preguntas");
+            }
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult Resultados(string []Respuestas,string idEncuesta, string idUsuario, string hora_Inicio, string hora_Final, string fecha)
+        {
+
+            var ResultadosEncuestas =(new Resultados
+            {
+                IdUsuario = Convert.ToInt32(idUsuario),
+                Hora_Inicio = hora_Inicio,
+                Hora_Final = hora_Final,
+                Fecha = Convert.ToDateTime(fecha)
+            });
+            db.Resultados.Add(ResultadosEncuestas);
+            db.SaveChanges();
+
+            int idResultado = ResultadosEncuestas.Id;
+
+            for (int i = 0; i < Respuestas.Length;i++) {
+                var DetalleResultados = (new DetalleResultado
+                {
+                    IdEncuesta = Convert.ToInt32(idEncuesta),
+                    IdResultado = idResultado,
+                    Valor = Respuestas[i]
+                });
+                db.DetalleResultado.Add(DetalleResultados);
+                db.SaveChanges();
+            }
+
+            return Json(Url.Action("Index", "Home"));
+
+
 
         }
 

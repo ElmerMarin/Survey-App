@@ -56,8 +56,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="valor" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdEncuesta" Type="int" Nullable="false" />
           <Property Name="IdResultado" Type="int" Nullable="false" />
+          <Property Name="Valor" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="Encuestados">
           <Key>
@@ -106,9 +107,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdEncuesta" Type="int" Nullable="false" />
           <Property Name="IdUsuario" Type="int" Nullable="false" />
-          <Property Name="IdDetalleResultado" Type="int" Nullable="false" />
+          <Property Name="Hora_Inicio" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Hora_Final" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -181,15 +183,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DetalleResultado_Resultados">
-          <End Role="Resultados" Type="Self.Resultados" Multiplicity="1" />
+        <Association Name="FK_DetalleResultado_Encuestas">
+          <End Role="Encuestas" Type="Self.Encuestas" Multiplicity="1" />
           <End Role="DetalleResultado" Type="Self.DetalleResultado" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Resultados">
+            <Principal Role="Encuestas">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="DetalleResultado">
-              <PropertyRef Name="IdResultado" />
+              <PropertyRef Name="IdEncuesta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -229,15 +231,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Resultados_Encuestas">
-          <End Role="Encuestas" Type="Self.Encuestas" Multiplicity="1" />
-          <End Role="Resultados" Type="Self.Resultados" Multiplicity="*" />
+        <Association Name="FK_Resultados_DetalleResultado">
+          <End Role="Resultados" Type="Self.Resultados" Multiplicity="1" />
+          <End Role="DetalleResultado" Type="Self.DetalleResultado" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Encuestas">
+            <Principal Role="Resultados">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Resultados">
-              <PropertyRef Name="IdEncuesta" />
+            <Dependent Role="DetalleResultado">
+              <PropertyRef Name="IdResultado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -285,8 +287,8 @@
             <End Role="Encuestas" EntitySet="Encuestas" />
             <End Role="DetalleEncuesta" EntitySet="DetalleEncuesta" />
           </AssociationSet>
-          <AssociationSet Name="FK_DetalleResultado_Resultados" Association="Self.FK_DetalleResultado_Resultados">
-            <End Role="Resultados" EntitySet="Resultados" />
+          <AssociationSet Name="FK_DetalleResultado_Encuestas" Association="Self.FK_DetalleResultado_Encuestas">
+            <End Role="Encuestas" EntitySet="Encuestas" />
             <End Role="DetalleResultado" EntitySet="DetalleResultado" />
           </AssociationSet>
           <AssociationSet Name="FK_Encuestados_Usuarios" Association="Self.FK_Encuestados_Usuarios">
@@ -301,9 +303,9 @@
             <End Role="Preguntas" EntitySet="Preguntas" />
             <End Role="Respuestas" EntitySet="Respuestas" />
           </AssociationSet>
-          <AssociationSet Name="FK_Resultados_Encuestas" Association="Self.FK_Resultados_Encuestas">
-            <End Role="Encuestas" EntitySet="Encuestas" />
+          <AssociationSet Name="FK_Resultados_DetalleResultado" Association="Self.FK_Resultados_DetalleResultado">
             <End Role="Resultados" EntitySet="Resultados" />
+            <End Role="DetalleResultado" EntitySet="DetalleResultado" />
           </AssociationSet>
           <AssociationSet Name="FK_Resultados_Usuarios" Association="Self.FK_Resultados_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
@@ -374,9 +376,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="valor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdEncuesta" Type="Int32" Nullable="false" />
           <Property Name="IdResultado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Resultados" Relationship="Self.FK_DetalleResultado_Resultados" FromRole="DetalleResultado" ToRole="Resultados" />
+          <Property Name="Valor" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Encuestas" Relationship="Self.FK_DetalleResultado_Encuestas" FromRole="DetalleResultado" ToRole="Encuestas" />
+          <NavigationProperty Name="Resultados" Relationship="Self.FK_Resultados_DetalleResultado" FromRole="DetalleResultado" ToRole="Resultados" />
         </EntityType>
         <EntityType Name="Encuestados">
           <Key>
@@ -403,8 +407,8 @@
           <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="DetalleEncuesta" Relationship="Self.FK_DetalleEncuesta_Encuestas" FromRole="Encuestas" ToRole="DetalleEncuesta" />
+          <NavigationProperty Name="DetalleResultado" Relationship="Self.FK_DetalleResultado_Encuestas" FromRole="Encuestas" ToRole="DetalleResultado" />
           <NavigationProperty Name="Preguntas" Relationship="Self.FK_Preguntas_Encuestas" FromRole="Encuestas" ToRole="Preguntas" />
-          <NavigationProperty Name="Resultados" Relationship="Self.FK_Resultados_Encuestas" FromRole="Encuestas" ToRole="Resultados" />
         </EntityType>
         <EntityType Name="Preguntas">
           <Key>
@@ -432,11 +436,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdEncuesta" Type="Int32" Nullable="false" />
           <Property Name="IdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="IdDetalleResultado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DetalleResultado" Relationship="Self.FK_DetalleResultado_Resultados" FromRole="Resultados" ToRole="DetalleResultado" />
-          <NavigationProperty Name="Encuestas" Relationship="Self.FK_Resultados_Encuestas" FromRole="Resultados" ToRole="Encuestas" />
+          <Property Name="Hora_Inicio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Hora_Final" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="DetalleResultado" Relationship="Self.FK_Resultados_DetalleResultado" FromRole="Resultados" ToRole="DetalleResultado" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_Resultados_Usuarios" FromRole="Resultados" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Usuarios">
@@ -513,7 +517,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DetalleResultado_Resultados">
+        <Association Name="FK_DetalleResultado_Encuestas">
+          <End Role="Encuestas" Type="Self.Encuestas" Multiplicity="1" />
+          <End Role="DetalleResultado" Type="Self.DetalleResultado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Encuestas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleResultado">
+              <PropertyRef Name="IdEncuesta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resultados_DetalleResultado">
           <End Role="Resultados" Type="Self.Resultados" Multiplicity="1" />
           <End Role="DetalleResultado" Type="Self.DetalleResultado" Multiplicity="*" />
           <ReferentialConstraint>
@@ -545,18 +561,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Preguntas">
-              <PropertyRef Name="IdEncuesta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Resultados_Encuestas">
-          <End Role="Encuestas" Type="Self.Encuestas" Multiplicity="1" />
-          <End Role="Resultados" Type="Self.Resultados" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Encuestas">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Resultados">
               <PropertyRef Name="IdEncuesta" />
             </Dependent>
           </ReferentialConstraint>
@@ -617,7 +621,11 @@
             <End Role="Encuestas" EntitySet="Encuestas" />
             <End Role="DetalleEncuesta" EntitySet="DetalleEncuesta" />
           </AssociationSet>
-          <AssociationSet Name="FK_DetalleResultado_Resultados" Association="Self.FK_DetalleResultado_Resultados">
+          <AssociationSet Name="FK_DetalleResultado_Encuestas" Association="Self.FK_DetalleResultado_Encuestas">
+            <End Role="Encuestas" EntitySet="Encuestas" />
+            <End Role="DetalleResultado" EntitySet="DetalleResultado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resultados_DetalleResultado" Association="Self.FK_Resultados_DetalleResultado">
             <End Role="Resultados" EntitySet="Resultados" />
             <End Role="DetalleResultado" EntitySet="DetalleResultado" />
           </AssociationSet>
@@ -628,10 +636,6 @@
           <AssociationSet Name="FK_Preguntas_Encuestas" Association="Self.FK_Preguntas_Encuestas">
             <End Role="Encuestas" EntitySet="Encuestas" />
             <End Role="Preguntas" EntitySet="Preguntas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Resultados_Encuestas" Association="Self.FK_Resultados_Encuestas">
-            <End Role="Encuestas" EntitySet="Encuestas" />
-            <End Role="Resultados" EntitySet="Resultados" />
           </AssociationSet>
           <AssociationSet Name="FK_Respuestas_Preguntas" Association="Self.FK_Respuestas_Preguntas">
             <End Role="Preguntas" EntitySet="Preguntas" />
@@ -702,8 +706,9 @@
             <EntityTypeMapping TypeName="SistemaEncuestasModel.DetalleResultado">
               <MappingFragment StoreEntitySet="DetalleResultado">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
                 <ScalarProperty Name="IdResultado" ColumnName="IdResultado" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -757,9 +762,10 @@
             <EntityTypeMapping TypeName="SistemaEncuestasModel.Resultados">
               <MappingFragment StoreEntitySet="Resultados">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-                <ScalarProperty Name="IdDetalleResultado" ColumnName="IdDetalleResultado" />
+                <ScalarProperty Name="Hora_Inicio" ColumnName="Hora_Inicio" />
+                <ScalarProperty Name="Hora_Final" ColumnName="Hora_Final" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

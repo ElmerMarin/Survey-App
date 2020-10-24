@@ -26,7 +26,7 @@
 </head>
 @if (Session["TipoUsuario"] == null)
 {
-    Response.Redirect("~/Account/Index");
+    Response.Redirect("~/Acceso/Index");
 }
 else
 {
@@ -43,7 +43,7 @@ else
                 <h4 class="c-sidebar__title">Panel de Control</h4>
                 <ul class="c-sidebar__list">
                     <li class="c-sidebar__item">
-                        <a class="c-sidebar__link is-active" href="~/Home">
+                        <a class="c-sidebar__link is-active" href="~/Home/Index">
                             <i class="fa fa-home u-mr-xsmall"></i>Inicio
                         </a>
                     </li>
@@ -69,7 +69,7 @@ else
                     @if (HttpContext.Current.Session["TipoUsuario"].Equals("Encuestado"))
                     {
                         <li class="c-sidebar__item">
-                            <a class="c-sidebar__link" href="~/TestMillon">
+                            <a class="c-sidebar__link" href="~/Encuestas/Index">
                                 <i class="fa fa-table u-mr-xsmall"></i>Encuestas
                             </a>
                         </li>

@@ -10,6 +10,7 @@ using Model;
 
 namespace WebAppSurvey.Controllers
 {
+    [Authorize]
     public class AreasController : Controller
     {
         private SystemEncuestas db = new SystemEncuestas();

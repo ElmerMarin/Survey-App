@@ -4,48 +4,61 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Encuestas</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+            <div>
+                <div class="c-modal__dialog modal-dialog" role="document">
+                    <div class="c-modal__content">
+                        <div class="c-modal__header u-bg-primary">
+                            <h3 class="c-modal__title">Encuestas</h3>
+                            <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-close"></i>
+                            </span>
+                        </div>
+                        <div class="c-modal__body">
+                            <form class="c-card__body formAjax" method="post" action="~/Encuestas/Create">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="c-field u-mb-small">
+                                            <label class="c-field__label" for="Titulo">Titulo</label>
+                                            <input class="c-input" type="text" id="Titulo" required="required" name="Titulo" placeholder="Titulo">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="c-field u-mb-small col-12">
+                                        <label class="c-field__label" for="Descripcion">Descripcion</label>
+                                        <input class="c-input" type="text" id="Descripcion" required="required" name="Descripcion" placeholder="Descripcion">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="c-field u-mb-small col-12">
+                                        <label class="c-field__label" for="Estado">Estado</label>
+                                        <select name="Estado" class="c-input" id="Estado<">
+                                            <!-- Opciones de la lista -->
+                                            <option value="Activo">Activo</option>
+                                            <option value="Inactivo" selected>Inactivo</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="u-text-left">
+                                    @Html.ActionLink("Regresar","Index",new { @class = "c-btn c-btn--success" })
+                                </div>
+
+                                <div class="u-text-right">
+                                    <button class="c-btn c-btn--info c-btn btnAjax" type="submit">
+                                        Guardar
+                                        <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div><!-- // .c-modal__content -->
+                </div><!-- // .c-modal__dialog -->
             </div>
-        </div>
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

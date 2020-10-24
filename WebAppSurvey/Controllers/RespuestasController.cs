@@ -10,6 +10,7 @@ using Model;
 
 namespace WebAppSurvey.Controllers
 {
+    [Authorize]
     public class RespuestasController : Controller
     {
         private SystemEncuestas db = new SystemEncuestas();
@@ -38,9 +39,10 @@ namespace WebAppSurvey.Controllers
         }
 
         // GET: Respuestas/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.IdPregunta = new SelectList(db.Preguntas, "Id", "Descripcion");
+            var preguntas = db.Preguntas.Where(c=>c.Id==id);
+            ViewBag.IdPregunta = new SelectList(preguntas, "Id", "Descripcion");
             return View();
         }
 
@@ -49,7 +51,7 @@ namespace WebAppSurvey.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Descripcion,Estado,IdPregunta")] Respuestas respuestas, int id)
+        public ActionResult Create([Bind(Include = "Id,Descripcion,Estado,IdPregunta")] Respuestas respuestas, int? id)
         {
             if (ModelState.IsValid)
             {
@@ -69,6 +71,7 @@ namespace WebAppSurvey.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             Respuestas respuestas = db.Respuestas.Find(id);
             if (respuestas == null)
             {
@@ -89,7 +92,7 @@ namespace WebAppSurvey.Controllers
             {
                 db.Entry(respuestas).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Respuestas", new { d =respuestas.IdPregunta});
             }
             ViewBag.IdPregunta = new SelectList(db.Preguntas, "Id", "Descripcion", respuestas.IdPregunta);
             return View(respuestas);
@@ -118,7 +121,7 @@ namespace WebAppSurvey.Controllers
             Respuestas respuestas = db.Respuestas.Find(id);
             db.Respuestas.Remove(respuestas);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Respuestas", new { d = respuestas.IdPregunta });
         }
 
         protected override void Dispose(bool disposing)

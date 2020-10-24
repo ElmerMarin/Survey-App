@@ -21,13 +21,13 @@ namespace Model
         }
     
         public int Id { get; set; }
-        public int IdEncuesta { get; set; }
         public int IdUsuario { get; set; }
-        public int IdDetalleResultado { get; set; }
+        public string Hora_Inicio { get; set; }
+        public string Hora_Final { get; set; }
+        public System.DateTime Fecha { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleResultado> DetalleResultado { get; set; }
-        public virtual Encuestas Encuestas { get; set; }
         public virtual Usuarios Usuarios { get; set; }
     }
 }

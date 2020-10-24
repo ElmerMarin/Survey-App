@@ -1,0 +1,95 @@
+﻿@using Model;
+
+@{
+    ViewBag.Title = "GenerarEncuesta";
+    SystemEncuestas db = new SystemEncuestas();
+    List<Preguntas> preguntas = ViewBag.preguntas;
+    List<int> RespuestaSeleccionada = ViewBag.respuestas;
+
+    string fecha = "", horaInicio = "", IdUsuario = "";
+    string respuestaSeleccionada = "15";
+    int indice = 0;
+    //moment().format('LTS');
+    if (HttpContext.Current.Session["TipoUsuario"] == null)
+    {
+        Response.Redirect("~/Acceso/Login");
+    }
+    else
+    {
+        IdUsuario = HttpContext.Current.Session["Usuario_Id"].ToString();
+        fecha = DateTime.Now.ToString("dd/MM/yyyy");
+        horaInicio = DateTime.Now.ToString("hh:mm:ss tt");
+    }
+
+    int? IdEncuesta = ViewBag.idEncuesta;
+
+    int TotalRespuestas = 0;
+
+}
+
+<h2 class="u-text-center">Encuesta</h2>
+
+@for (int i = 0; i < preguntas.Count; i++)
+{
+    int idpregunta = preguntas[i].Id;
+    var respuestas = db.Respuestas.Where(p => p.IdPregunta == idpregunta).ToList();
+    <p class="u-text-bold" style="font-family:Arial;font-size:16px;"> @(i+1).@preguntas[i].Descripcion</p>
+    for (int j = 0; j < respuestas.Count; j++)
+    {
+        TotalRespuestas++;
+        <input type="radio" class="u-text-right" name="Respuesta+@respuestas[j].Id" id="@respuestas[j].Id+@j" value="@respuestas[j].Descripcion" />
+        @respuestas[j].Descripcion
+    }
+    <br />
+    
+
+}
+<div class="col-md-6">
+    <input type="button" class="c-btn c-btn--info"  value="Procesar" onclick="CapturarDatos(@TotalRespuestas)" id="Proceso" />
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        var myVar = setInterval(myTimer, 1000);
+        var horaFinal;
+
+        function myTimer() {
+            var d = new Date();
+            horaFinal = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true, second: 'numeric' });
+            //document.getElementById("demo").innerHTML = horaFinal;
+        }
+
+        function myStopFunction() {
+            clearInterval(myVar);
+        }
+
+        function CapturarDatos(m)
+        {
+            var respuestas = new Array();
+            var numero = Number(m);
+            for (var i = 1; i<=numero; i++) {
+                var seleccion = $('input[name="Respuesta+@RespuestaSeleccionada[indice]"]:checked').val();
+                @indice++;
+                respuestas.push(seleccion);
+            }
+        clearInterval(myVar);
+
+        $.ajax({
+        url: "@Url.Action("Resultados","Encuestas")",
+        type: "POST",
+        dataType:'json',
+            //crossDomain: true,
+            data: { Respuestas: respuestas, idEncuesta: "@IdEncuesta", idUsuario: "@IdUsuario", hora_Inicio: "@horaInicio", hora_Final: horaFinal,fecha: "@fecha" },
+        success: function (data) {
+    // Si la petición es satisfactoria, se recarga la página actual
+        window.location.href = data;
+        }
+            });
+
+
+
+    }
+    </script>
+
+}

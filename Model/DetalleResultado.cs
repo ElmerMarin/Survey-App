@@ -15,9 +15,11 @@ namespace Model
     public partial class DetalleResultado
     {
         public int Id { get; set; }
-        public string valor { get; set; }
+        public int IdEncuesta { get; set; }
         public int IdResultado { get; set; }
+        public string Valor { get; set; }
     
+        public virtual Encuestas Encuestas { get; set; }
         public virtual Resultados Resultados { get; set; }
     }
 }
