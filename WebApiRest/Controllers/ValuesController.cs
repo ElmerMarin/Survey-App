@@ -1,25 +1,18 @@
-﻿using Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+
 namespace WebApiRest.Controllers
 {
     public class ValuesController : ApiController
     {
         // GET api/values
-
-        public IEnumerable<Model.Preguntas> Get()
+        public IEnumerable<string> Get()
         {
-            IEnumerable<Preguntas> lst;
-            using (Model.SystemEncuestas db = new Model.SystemEncuestas())
-            {
-                lst = db.Preguntas.ToList();
-
-            }
-            return lst;
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

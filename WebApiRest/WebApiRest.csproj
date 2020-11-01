@@ -8,7 +8,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{601C3D8B-8A4B-4344-AEA1-F40286D1E2B8}</ProjectGuid>
+    <ProjectGuid>{92FD0B1F-BFE6-424A-8A47-DE6A120526A5}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -255,7 +255,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{fd3d28ca-1297-4284-bc1f-16efa4563f41}</Project>
+      <Project>{f05b6c24-abdb-4a36-8480-57a2b3361bf4}</Project>
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
@@ -275,7 +275,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62531</DevelopmentServerPort>
+          <DevelopmentServerPort>51171</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>https://localhost:44373/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

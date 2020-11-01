@@ -328,10 +328,12 @@
     <Content Include="Content\img\users.png" />
     <Content Include="Content\img\visa.png" />
     <Content Include="Content\js\bootstrap4.js" />
+    <Content Include="Content\js\Chart.min.js" />
     <Content Include="Content\js\custom.js" />
     <Content Include="Content\js\jquery.plugins.js" />
     <Content Include="Content\js\main.js" />
     <Content Include="Content\js\main.min.js" />
+    <Content Include="Content\js\utils.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\scripts\bootstrap.js" />
     <Content Include="Content\scripts\bootstrap.min.js" />
@@ -433,6 +435,9 @@
     <Content Include="Views\Respuestas\Edit.cshtml" />
     <Content Include="Views\Respuestas\Index.cshtml" />
     <Content Include="Views\Encuestas\GenerarEncuesta.cshtml" />
+    <Content Include="Views\Encuestas\BuscarEncuestas.cshtml" />
+    <Content Include="Views\Encuestas\ResultadosFinales.cshtml" />
+    <Content Include="Views\Shared\_ViewResultado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

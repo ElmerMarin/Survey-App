@@ -1,14 +1,13 @@
 ﻿@using Model;
 
 @{
+    Layout = "~/Views/Shared/_ViewResultado.cshtml";
     ViewBag.Title = "GenerarEncuesta";
     SystemEncuestas db = new SystemEncuestas();
     List<Preguntas> preguntas = ViewBag.preguntas;
     List<int> RespuestaSeleccionada = ViewBag.respuestas;
 
     string fecha = "", horaInicio = "", IdUsuario = "";
-    string respuestaSeleccionada = "15";
-    int indice = 0;
     //moment().format('LTS');
     if (HttpContext.Current.Session["TipoUsuario"] == null)
     {
@@ -18,35 +17,57 @@
     {
         IdUsuario = HttpContext.Current.Session["Usuario_Id"].ToString();
         fecha = DateTime.Now.ToString("dd/MM/yyyy");
-        horaInicio = DateTime.Now.ToString("hh:mm:ss tt");
+        horaInicio = DateTime.Now.ToString("dd/MM/yyyy");
+        //horaInicio = DateTime.Now.ToString("hh:mm:ss tt");
     }
 
     int? IdEncuesta = ViewBag.idEncuesta;
 
     int TotalRespuestas = 0;
+    int TotalPreguntas = 0;
 
 }
+<br />
+<br />
+<table class="c-table c-table--highlight u-mb-small">
+    <thead class="c-table__head c-table__head--slim">
+        <tr>
+            <th class="c-table__cell c-table__cell--head text-center">
+                Pregunta
+            </th>
 
-<h2 class="u-text-center">Encuesta</h2>
+        </tr>
+    </thead>
+    <tbody>
 
-@for (int i = 0; i < preguntas.Count; i++)
-{
-    int idpregunta = preguntas[i].Id;
-    var respuestas = db.Respuestas.Where(p => p.IdPregunta == idpregunta).ToList();
-    <p class="u-text-bold" style="font-family:Arial;font-size:16px;"> @(i+1).@preguntas[i].Descripcion</p>
-    for (int j = 0; j < respuestas.Count; j++)
-    {
-        TotalRespuestas++;
-        <input type="radio" class="u-text-right" name="Respuesta+@respuestas[j].Id" id="@respuestas[j].Id+@j" value="@respuestas[j].Descripcion" />
-        @respuestas[j].Descripcion
-    }
-    <br />
-    
+        @for (int i = 0; i < preguntas.Count; i++)
+        {
+            TotalPreguntas++;
+            int idpregunta = preguntas[i].Id;
+            var respuestas = db.Respuestas.Where(p => p.IdPregunta == idpregunta).ToList();
+            <tr class="c-table__row">
+                <td class="c-table__cell align-content-center">
+                    <p class="u-text-bold" style="font-family:Arial;font-size:14px;"> @(i+1).@preguntas[i].Descripcion</p>
+                    @for (int j = 0; j < respuestas.Count; j++)
+                    {
 
-}
-<div class="col-md-6">
-    <input type="button" class="c-btn c-btn--info"  value="Procesar" onclick="CapturarDatos(@TotalRespuestas)" id="Proceso" />
+                        TotalRespuestas++;
+                        <input type="radio" class="u-text-right" name="Respuesta+@i" id="opcion+@respuestas[j].Id" value="@respuestas[j].Descripcion" />
+                        @respuestas[j].Descripcion
+
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<div class="u-text-right">
+    @Html.ActionLink("Regresar", "Index", new { }, new { @class = "c-btn c-btn--success" })
+    <input type="button" class="c-btn c-btn--info" value="Procesar" onclick="CapturarDatos(@TotalPreguntas)" id="Proceso" />
 </div>
+
 
 @section Scripts {
     <script type="text/javascript">
@@ -67,29 +88,38 @@
         function CapturarDatos(m)
         {
             var respuestas = new Array();
+            var ContadorRespuestasNoContestadas = 0;
             var numero = Number(m);
-            for (var i = 1; i<=numero; i++) {
-                var seleccion = $('input[name="Respuesta+@RespuestaSeleccionada[indice]"]:checked').val();
-                @indice++;
-                respuestas.push(seleccion);
+            for (var i = 0; i <numero; i++) {
+                //var opciones = "opcion+" + inicio.toString();
+                var Respuesta = 'input[name="Respuesta+' + i + '"]:checked';
+                var seleccion = $(Respuesta).val();
+                if (seleccion == null) {
+                    alert("Conteste la Pregunta:" + (i + 1));
+                    ContadorRespuestasNoContestadas++;
+                }
+                else {
+                    respuestas.push(seleccion);
+
+                }
+
             }
-        clearInterval(myVar);
+            if (ContadorRespuestasNoContestadas == 0) {
+                    clearInterval(myVar);
+                    $.ajax({
+                         url: "@Url.Action("Resultados","Encuestas")",
+                         type: "POST",
+                         dataType: 'json',
+                            //crossDomain: true,
+                         data: { Respuestas: respuestas, idEncuesta: "@IdEncuesta", idUsuario: "@IdUsuario", hora_Inicio: "@horaInicio", hora_Final: horaFinal, fecha: "@fecha" },
+                         success: function (data) {
+                                // Si la petición es satisfactoria, se recarga la página actual
+                                window.location.href = data;
+                          }
+                     });
 
-        $.ajax({
-        url: "@Url.Action("Resultados","Encuestas")",
-        type: "POST",
-        dataType:'json',
-            //crossDomain: true,
-            data: { Respuestas: respuestas, idEncuesta: "@IdEncuesta", idUsuario: "@IdUsuario", hora_Inicio: "@horaInicio", hora_Final: horaFinal,fecha: "@fecha" },
-        success: function (data) {
-    // Si la petición es satisfactoria, se recarga la página actual
-        window.location.href = data;
+            }
         }
-            });
-
-
-
-    }
     </script>
 
 }

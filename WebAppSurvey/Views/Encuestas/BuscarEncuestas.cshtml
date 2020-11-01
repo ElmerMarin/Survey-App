@@ -1,0 +1,110 @@
+﻿@model PagedList.IPagedList<Model.Encuestas>
+@using PagedList.Mvc
+@{ string strOrden = ""; string strImgOrder = "";}
+
+@if (Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+    <tr class="c-table__row">
+        <td class="c-table__cell">
+            @item.Titulo
+        </td>
+        <td class="c-table__cell">
+            @item.Estado
+        </td>
+        <td class="c-table__cell u-text-right">
+            <div>
+                @if (HttpContext.Current.Session["TipoUsuario"].Equals("Administrador"))
+                {
+                    @Html.ActionLink(" Edit", "Edit", new { id = item.Id }, new { @class = "fa fa-pencil-square-o u-mr-xsmall c-btn c-btn--success " })
+                    @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--danger" })
+                    @Html.ActionLink(" Preguntas", "Preguntas", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--warninng" })
+                }
+                @Html.ActionLink(" Generar", "GenerarEncuesta", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--warninng" })
+                @Html.ActionLink(" Resultados", "ResultadosFinales", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--warninng" })
+            </div>
+        </td>
+    </tr>
+    }
+}
+else
+{
+    <tr>
+        <td class="c-table__cell" colspan="10">
+            No tienes productos registrados
+        </td>
+    </tr>
+}
+<div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+</div>
+<div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
+    @Html.PagedListPager(Model, page => Url.Action("BuscarPacientes", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
+</div>
+<script>
+
+
+    @*function buscarPaciente(consulta){
+        $.ajax({
+            url: "@Url.Action("BuscarPacientes", "Pacientes")",
+            type: 'POST',
+        dataType:'html',
+        data:{consulta:consulta},
+            })
+    .done(function(respuesta){
+        $("#PacientesBuscados").html(respuesta);
+    })
+    .fail(function(){
+        console.log("error");
+    })
+
+    }*@
+
+
+    var permiteOrdenar = '';
+    $(document).ready(function () {
+
+
+
+
+
+        $(".permiteOrdenar").on("click", function () {
+            permiteOrdenar = $(this).data("order");
+            cargaTabla($(this).data("order"), $("#txtBuscar").val());
+        });
+        $("#btnBuscar").click(function () {
+            cargaTabla(permiteOrdenar, $("#txtBuscar").val());
+        });
+        //$(document).on('keyup', "#txtBuscar", function () {
+        //    //cargaTabla(permiteOrdenar, $("#txtBuscar").val());
+        //    var valor =$(this).val();
+        //    if(valor!=""){
+        //        buscarPaciente(valor);
+
+        //    }
+        //    else{
+        //        buscarPaciente();
+
+        //    }
+
+
+        //});
+        $("#datatable_paginate").on("click", 'a', function (e) {
+            e.preventDefault();
+            $("#msgCargando").show();
+            $.ajax({
+                url: this.href,
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $("#msgCargando").hide();
+                    $('#divProductos').html(result);
+                }
+            });
+        });
+    });
+
+
+
+</script>

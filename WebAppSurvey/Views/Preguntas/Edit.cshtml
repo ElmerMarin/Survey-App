@@ -4,50 +4,78 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Preguntas</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    <div class="c-modal__dialog modal-dialog" role="document">
+        <div class="c-modal__content">
+            <div class="c-modal__header u-bg-primary">
+                <h3 class="c-modal__title">Encuestas</h3>
+                <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-close"></i>
+                </span>
             </div>
-        </div>
+            <div class="c-modal__body">
+                <form class="c-card__body formAjax" method="post" action="~/Preguntas/Edit">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="c-field u-mb-small">
+                                @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "c-field__label" })
+                                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "c-input" } })
+                                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="c-field u-mb-small col-12">
+                            <label class="c-field__label" for="Estado">Estado</label>
+                            <select name="Estado" class="c-input" id="Estado">
+                                <option value="Activo">Activo</option>
+                                <option value="Inactivo" selected>Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="c-field u-mb-small col-12">
+                            <label class="c-field__label" for="EstadoFinal">Encuesta</label>
+                                @Html.DropDownList("IdEncuesta", null, htmlAttributes: new { @class = "c-field u-mb-small col-12 c-field__label c-input" })
+                                @Html.ValidationMessageFor(model => model.IdEncuesta, "", new { @class = "text-danger" })
+                            
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdEncuesta, "IdEncuesta", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IdEncuesta", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IdEncuesta, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                    <div class="u-text-center">
+                        @Html.ActionLink("Regresar", "Index", new { d = Model.IdEncuesta }, new { @class = "c-btn c-btn--success" })
+                        <button class="c-btn c-btn--info c-btn btnAjax" type="submit">
+                            Guardar
+                            <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-}
 
-<div>
-    @Html.ActionLink("Index", "Index", new { d = Model.IdEncuesta})
-</div>
+}
+@section scripts
+{
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+            document.getElementById('Estado').value="@Model.Estado";
+
+        });
+
+
+
+    </script>
+
+
+}

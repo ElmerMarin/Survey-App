@@ -1,75 +1,92 @@
-﻿@model IEnumerable<Model.Encuestas>
+﻿@model PagedList.IPagedList<Model.Encuestas>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
 
 }
 
-<table class="c-table c-table--highlight u-mb-small">
-    <caption class="c-table__title">
-        <div class="row">
-            @if (HttpContext.Current.Session["TipoUsuario"].Equals("Administrador"))
-            {
-                <div class="col-md-6">
-                    Encuestas <small>20</small>
-                    <button type="button" class="c-btn c-btn--info">
-                        @Html.ActionLink("Create", "Create", new { @class = "c-btn c-btn--success" })
-                    </button>
-                </div>
-            }
-                <div class="col-md-6">
-                    <div class="c-field has-addon-right">
-                        <input class="c-input" id="txtBuscar" type="text" placeholder="Buscar..." value="@ViewBag.Buscar">
-                        <button id="btnBuscar" type="button" class="c-btn c-btn--info c-field__addon">
-                            <i class="fa fa-search"></i>
-                        </button>
+    <table class="c-table c-table--highlight u-mb-small">
+
+        <caption class="c-table__title">
+            <div class="row">
+                @if (HttpContext.Current.Session["TipoUsuario"].Equals("Administrador"))
+                {
+                    <div class="col-md-6">
+                        Encuestas<small>20</small>
+                        @Html.ActionLink("Agregar", "Create", new { }, new { @class = "c-btn c-btn--info " })
                     </div>
-                </div>
+                    <div class="col-md-6">
+                        <div class="c-field has-addon-right">
+                            <input class="c-input" id="txtBuscar" type="text" placeholder="Buscar..." value="@ViewBag.Buscar">
+                            <button id="btnBuscar" type="button" class="c-btn c-btn--info c-field__addon">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+                @if (HttpContext.Current.Session["TipoUsuario"].Equals("Encuestado"))
+                {
+                    <div class="col-md-4">
+                        Encuestas<small>20</small>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="c-field has-addon-right">
+                            <input class="c-input" id="txtBuscar" type="text" placeholder="Buscar..." value="@ViewBag.Buscar">
+                            <button id="btnBuscar" type="button" class="c-btn c-btn--info c-field__addon">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+
             </div>
 
-    </caption>
-    <thead class="c-table__head c-table__head--slim">
-        <tr>
-            <th class="c-table__cell c-table__cell--head">
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th class="c-table__cell c-table__cell--head">
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th class="c-table__cell c-table__cell--head">
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr class="c-table__row">
-                <td class="c-table__cell">
-                    @Html.DisplayFor(modelItem => item.Titulo)
-                </td>
-                <td class="c-table__cell">
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td class="c-table__cell">
-                    @Html.DisplayFor(modelItem => item.Estado)
-                </td>
-                <td class="c-table__cell u-text-right">
-                    <div>
-                        @if (HttpContext.Current.Session["TipoUsuario"].Equals("Administrador"))
-                        {
-                            @Html.ActionLink(" Edit", "Edit", new { id = item.Id }, new { @class = "fa fa-pencil-square-o u-mr-xsmall c-btn c-btn--success " })
-                            @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--danger" })
-                            @Html.ActionLink(" Preguntas", "Preguntas", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--warninng" })
-                        }
-                            @Html.ActionLink(" GenerarEncuesta", "GenerarEncuesta", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--warninng" })                        
-                     </div>
-                </td>
+        </caption>
+
+        <thead class="c-table__head c-table__head--slim">
+            <tr>
+                <th class="c-table__cell c-table__cell--head">
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Titulo)
+                </th>
+                <th class="c-table__cell c-table__cell--head">
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Estado)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody id="PacientesBuscados">
+            @foreach (var item in Model)
+            {
+                <tr class="c-table__row">
+                    <td class="c-table__cell">
+                        @Html.DisplayFor(modelItem => item.Titulo)
+                    </td>
+                    <td class="c-table__cell">
+                        @Html.DisplayFor(modelItem => item.Estado)
+                    </td>
+                    <td class="c-table__cell u-text-right">
+                        <div>
+                            @if (HttpContext.Current.Session["TipoUsuario"].Equals("Administrador"))
+                            {
+                                @Html.ActionLink(" Edit", "Edit", new { id = item.Id }, new { @class = "fa fa-pencil-square-o u-mr-xsmall c-btn c-btn--success " })
+                                @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--danger" })
+                                @Html.ActionLink(" Preguntas", "Preguntas", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--warninng" })
+                            }
+                            @Html.ActionLink(" Generar", "GenerarEncuesta", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--warninng" })
+                            @Html.ActionLink(" Resultados", "ResultadosFinales", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--warninng" })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+<div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+</div>
+<div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
+</div>
 <div class="c-modal c-modal--large modal fade show ocultarDespues" id="modal8" tabindex="-1" role="dialog" aria-labelledby="modal8" data-backdrop="static">
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
@@ -118,5 +135,37 @@
         </div><!-- // .c-modal__content -->
     </div><!-- // .c-modal__dialog -->
 </div>
+@section scripts
+{
+    <script type="text/javascript">
+    function buscarPaciente(consulta){
+        $.ajax({
+            url: "@Url.Action("BuscarEncuestas", "Encuestas")",
+            type: 'POST',
+            dataType:'html',
+            data:{consulta:consulta},
+            })
+                .done(function(respuesta){
+            $("#PacientesBuscados").html(respuesta);
+            })
+            .fail(function(){
+            console.log("error");
+            })
+     }
+    $(document).on('keyup', "#txtBuscar", function () {
+                //cargaTabla(permiteOrdenar, $("#txtBuscar").val());
+        var valor = $("#txtBuscar").val();
+         if (valor != "") {
+             buscarPaciente(valor);
 
+          }
+          else {
+               buscarPaciente();
 
+        }
+    });
+
+    </script>
+    <script src="~/Content/js/custom.js"></script>
+
+}

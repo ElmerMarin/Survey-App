@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Model;
+using PagedList;
 
 namespace WebAppSurvey.Controllers
 {
@@ -16,9 +17,38 @@ namespace WebAppSurvey.Controllers
         private SystemEncuestas db = new SystemEncuestas();
 
         // GET: Encuestas
-        public ActionResult Index()
+        [HttpPost]
+        public ActionResult Index(string valSearch, int? page)
         {
-            return View(db.Encuestas.ToList());
+            //return View(db.Encuestas.ToList());
+            ViewBag.Buscar = valSearch;
+            List<Encuestas> objEncuestas = new List<Encuestas>();
+            if (string.IsNullOrEmpty(valSearch))
+                objEncuestas = db.Encuestas.Where(c => true).OrderBy(c => c.Id).ToList();
+            else
+                objEncuestas = db.Encuestas.Where(c => true && (c.Descripcion.Contains(valSearch) || c.Titulo.Contains(valSearch))).OrderBy(c => c.Id).ToList();
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return View(objEncuestas.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult Index(string val, string valSearch, int? page)
+        {
+            ViewBag.Buscar = valSearch;
+            List<Encuestas> objEncuestas = new List<Encuestas>();
+            if (string.IsNullOrEmpty(valSearch))
+                objEncuestas = db.Encuestas.Where(c => true).OrderBy(c => c.Id).ToList();
+            else
+                objEncuestas = db.Encuestas.Where(c => true && (c.Descripcion.Contains(valSearch) || c.Titulo.Contains(valSearch))).OrderBy(c => c.Id).ToList();
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return View(objEncuestas.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Encuestas/Details/5
@@ -133,25 +163,8 @@ namespace WebAppSurvey.Controllers
         public ActionResult GenerarEncuesta(int? id)
         {
 
-            List<int> respuestas=new List<int>();
-            List<int> ides = new List<int>();
-            var respuestasfinales =0;
             var preguntas = db.Preguntas.Where(p => p.IdEncuesta == id).ToList();
-            for (int i = 0; i < preguntas.Count; i++)
-            {
-                int idpregunta = preguntas[i].Id;
-                var resultado = db.Respuestas.Where(p => p.IdPregunta ==idpregunta).ToList();
-                for (int j = 0; j < resultado.Count; j++)
-                {
-                    respuestasfinales = resultado[j].Id;
-                    respuestas.Add(respuestasfinales);
-                   
-                }
-                ides.Add(preguntas[i].Id);
-            }
-            ViewBag.respuestas = respuestas;
             ViewBag.preguntas = preguntas;
-            ViewBag.idEncuesta = id;
 
             if (preguntas == null)
             {
@@ -192,6 +205,37 @@ namespace WebAppSurvey.Controllers
 
 
 
+        }
+
+        
+        public ActionResult ResultadosFinales(int? id)
+        {
+            List<int> respuestas = new List<int>();
+            var preguntas = db.Preguntas.Where(p => p.IdEncuesta == id).ToList();
+            ViewBag.respuestas = respuestas;
+            ViewBag.preguntas = preguntas;
+            ViewBag.idEncuesta = id;
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public ActionResult BuscarEncuestas(string consulta, int? page = null)
+        {
+            ViewBag.Buscar = consulta;
+            List<Encuestas> objProduct = new List<Encuestas>();
+            if (string.IsNullOrEmpty(consulta))
+                objProduct = db.Encuestas.Where(c => true).OrderBy(c => c.Id).ToList();
+            else
+                objProduct = db.Encuestas.Where(c => true && (c.Descripcion.Contains(consulta) || c.Titulo.Contains(consulta) || c.Estado.Contains(consulta))).OrderBy(c => c.Id).ToList();
+
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
         }
 
         protected override void Dispose(bool disposing)

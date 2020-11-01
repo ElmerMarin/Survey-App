@@ -43,6 +43,7 @@ namespace WebAppSurvey.Controllers
         {
             var preguntas = db.Preguntas.Where(c=>c.Id==id);
             ViewBag.IdPregunta = new SelectList(preguntas, "Id", "Descripcion");
+            ViewBag.IDRespuestas = id;
             return View();
         }
 

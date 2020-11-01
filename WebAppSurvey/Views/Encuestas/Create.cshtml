@@ -43,12 +43,8 @@
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="u-text-left">
-                                    @Html.ActionLink("Regresar","Index",new { @class = "c-btn c-btn--success" })
-                                </div>
-
-                                <div class="u-text-right">
+                                <div class="u-text-center">
+                                    @Html.ActionLink("Regresar", "Index", new { },new { @class = "c-btn c-btn--success" })
                                     <button class="c-btn c-btn--info c-btn btnAjax" type="submit">
                                         Guardar
                                         <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />

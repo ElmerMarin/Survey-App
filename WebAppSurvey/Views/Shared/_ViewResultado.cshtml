@@ -1,0 +1,48 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Sistema de Encuestas</title>
+    <meta name="description" content="Dashboard UI Kit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Font -->
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" href="~/Content/img/favicon.png" type="image/png">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="~/Content/css/main.min.css">
+    <link href="~/Content/css/custom.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body class="o-page">
+    <!--[if lte IE 9]>
+           <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+       <![endif]-->
+    <!-- SIDEBAR -->
+
+    <!-- MAIN CONTENT -->
+    
+        <div class="container">
+            @RenderBody()
+        </div><!-- // .container -->
+    
+    <script>
+        var urlGeneral = '@Url.Content("~/")'
+    </script>
+    <script src="~/Content/js/main.js"></script>
+    <script src="~/Content/js/jquery.plugins.js"></script>
+    <script src="~/Content/Calendar/moment/main.min.js"></script>
+
+    @RenderSection("scripts", false)
+</body>
+</html>

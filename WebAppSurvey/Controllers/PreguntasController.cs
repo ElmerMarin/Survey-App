@@ -50,6 +50,7 @@ namespace WebAppSurvey.Controllers
         {
             var encuestas = db.Encuestas.Where(c => c.Id == id);
             ViewBag.IdEncuesta = new SelectList(encuestas, "Id", "Titulo");
+            ViewBag.IDEncuestas =id;
             return View();
         }
 
