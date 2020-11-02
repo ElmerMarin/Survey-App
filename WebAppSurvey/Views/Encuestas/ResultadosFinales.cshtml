@@ -1,4 +1,5 @@
 ﻿@using Model;
+@using System.Web.Script.Serialization;
 
 @{
     ViewBag.Title = "GenerarEncuesta";
@@ -30,6 +31,48 @@
 }
 
 <h2 class="u-text-center">Resultados Finales</h2>
+<script src='~/Content/js/utils.js'></script>
+<script src='~/Content/js/Chart.min.js'></script>
+<script>
+    function graficas(contadorPregunta,valores,descripcion,titulos) {
+        canvas = document.getElementById(contadorPregunta).getContext("2d");
+        //if (window.grafica) {
+        //    window.grafica.clear();
+        //    window.grafica.destroy();
+        //}
+
+        
+        var Respuestas = JSON.parse(descripcion.replace(/&quot;/g, '"'));
+        var titulosdePreguntas = JSON.parse(titulos.replace(/&quot;/g, '"'));
+
+        //var id = [];
+        //for (var i in valores) {
+        //    id.push(valores[i]);
+        //}
+
+        var valoresResultado = JSON.parse(valores);
+        
+
+        window.grafica = new Chart(canvas, {
+            type: 'horizontalBar',
+            data: {
+                labels: Respuestas,
+                datasets: [
+                    {
+                        label: titulosdePreguntas,
+                        backgroundColor: ['rgb(255, 198, 142)', 'rgb(255, 255, 0)', 'rgb(200,255, 255)', 'rgb(210,225,155)'],
+                        borderColor: window.chartColors.red,
+                        data: valoresResultado,
+                    },
+
+
+
+                ]
+            }
+        })
+    }
+
+</script>
 
 @for (int i = 0; i < preguntas.Count; i++)
 {
@@ -37,8 +80,14 @@
     int idpregunta = preguntas[i].Id;
     var respuestas = db.Respuestas.Where(p => p.IdPregunta == idpregunta).ToList();
     var contadorPregunta = "Grafica:" + i;
+    var descripcionPregunta = "";
+    List<string> descripciones = new List<string>();
+    List<string> titulos = new List<string>();
+    List<int> valores = new List<int>();
 
-    <p class="u-text-bold" style="font-family:Arial;font-size:16px;"> @(i+1).@preguntas[i].Descripcion</p>
+    titulos.Add(preguntas[i].Descripcion);
+
+    @*<p class="u-text-bold" style="font-family:Arial;font-size:16px;"> @(i+1).@preguntas[i].Descripcion</p>*@
     <div class="row">
         <div class="col-xl-8">
             <div class="c-card u-p-medium u-mb-medium">
@@ -56,39 +105,27 @@
         string descripcion = respuestas[j].Descripcion;
         var RespuestasDeUsuarios = db.DetalleResultado.Where(p => p.IdEncuesta == IdEncuesta && p.Valor == descripcion).Count();
         <p style="font-family:Arial;font-size:14px;">@respuestas[j].Descripcion  @RespuestasDeUsuarios</p>
+        descripcionPregunta = descripcionPregunta + respuestas[j].Descripcion+",";
+        descripciones.Add(respuestas[j].Descripcion);
+        valores.Add(RespuestasDeUsuarios);
+
+
+
 
     }
 
-    <script src='~/Content/js/utils.js'></script>
-    <script src='~/Content/js/Chart.min.js'></script>
-    <script>
+    JavaScriptSerializer dd = new JavaScriptSerializer();
+    string json = dd.Serialize(valores);
 
-            let canvas = document.getElementById("Grafica:0").getContext("2d");
-            if (window.grafica) {
-                window.grafica.clear();
-                window.grafica.destroy();
-            }
+    JavaScriptSerializer dd2 = new JavaScriptSerializer();
+    string json2 = dd2.Serialize(descripciones);
 
+    JavaScriptSerializer dd3 = new JavaScriptSerializer();
+    string json3 = dd3.Serialize(titulos);
 
-            window.grafica = new Chart(canvas, {
-                type: 'horizontalBar',
-                data: {
-                    labels: ["hola",],
-                    datasets: [
-                        {
-                            label: "Preguntas",
-                            backgroundColor: ['rgb(255, 99, 132)', 'rgb(0, 255, 0)', 'rgb(255, 99, 132)', 'rgb(128, 255, 0)', 'rgb(145,60, 255)', 'rgb(255, 255,80 )', 'rgb(255, 255, 128)', 'rgb(255, 99, 200)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(180,255,200)', 'rgb(180,255, 200)', 'rgb(180,255, 200)',],
-                            borderColor: window.chartColors.red,
-                            data: [5],
-                        },
-
-
-
-                    ]
-                }
-            })
-
-    </script>
+<script>
+        graficas("@contadorPregunta", "@json","@json2","@json3")
+</script>
     <br />
 
 

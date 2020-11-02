@@ -165,6 +165,7 @@ namespace WebAppSurvey.Controllers
 
             var preguntas = db.Preguntas.Where(p => p.IdEncuesta == id).ToList();
             ViewBag.preguntas = preguntas;
+            ViewBag.idEncuesta = id;
 
             if (preguntas == null)
             {
