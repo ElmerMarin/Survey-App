@@ -166,6 +166,7 @@ namespace WebAppSurvey.Controllers
             var preguntas = db.Preguntas.Where(p => p.IdEncuesta == id).ToList();
             ViewBag.preguntas = preguntas;
             ViewBag.idEncuesta = id;
+            
 
             if (preguntas == null)
             {
@@ -202,7 +203,7 @@ namespace WebAppSurvey.Controllers
                 db.SaveChanges();
             }
 
-            return Json(Url.Action("Index", "Home"));
+            return Json(Url.Action("Index", "Encuestas"));
 
 
 
@@ -216,6 +217,7 @@ namespace WebAppSurvey.Controllers
             ViewBag.respuestas = respuestas;
             ViewBag.preguntas = preguntas;
             ViewBag.idEncuesta = id;
+            ViewBag.Titulo = db.Encuestas.Where(c => c.Id == id).Select(b => b.Titulo).FirstOrDefault();
             return View();
         }
 

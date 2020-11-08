@@ -22,6 +22,7 @@
     }
 
     int? IdEncuesta = ViewBag.idEncuesta;
+    string TituloEncuesta = ViewBag.Titulo;
 
     int TotalRespuestas = 0;
     int TotalPreguntas = 0;
@@ -92,7 +93,7 @@
         <div class="col-xl-8">
             <div class="c-card u-p-medium u-mb-medium">
                 <div class="u-flex u-justify-between u-align-items-center">
-                    <h3 class="c-card__title">Preguntas</h3>
+                    <h3 class="c-card__title u-text-center">@TituloEncuesta</h3>
                     <span class="u-text-small u-text-uppercase u-text-mute">@DateTime.Now.Year</span>
                 </div>
                 <canvas id=@contadorPregunta width="300" height="155"></canvas>

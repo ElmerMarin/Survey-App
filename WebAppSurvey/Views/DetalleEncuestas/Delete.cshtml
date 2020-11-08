@@ -1,4 +1,4 @@
-﻿@model Model.Areas
+﻿@model Model.DetalleEncuesta
 
 @{
     ViewBag.Title = "Delete";
@@ -21,16 +21,16 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="c-field u-mb-small">
-                                @Html.DisplayNameFor(model => model.Nombre):
-                                @Html.DisplayFor(model => model.Nombre)
+                                @Html.DisplayNameFor(model => model.Encuestas.Descripcion):
+                                @Html.DisplayFor(model => model.Encuestas.Descripcion)
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="c-field u-mb-small">
-                                @Html.DisplayNameFor(model => model.Fecha)
-                                @Html.DisplayFor(model => model.Fecha)
+                                @Html.DisplayNameFor(model => model.Areas.Nombre):
+                                @Html.DisplayFor(model => model.Areas.Nombre)
                             </div>
                         </div>
                     </div>

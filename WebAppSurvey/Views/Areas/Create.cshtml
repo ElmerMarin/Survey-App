@@ -30,29 +30,33 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="c-field u-mb-small">
-                                    <label class="c-field__label" for="Fecha">Fecha</label>
-                                    <input class="c-input" type="text" id="Fecha" required="required" name="Fecha" placeholder="Fecha">
+                                    <label class="c-field__label" for="Profesion">Fecha</label>
+                                    <div class="c-field has-addon-left">
+                                        <span class="c-field__addon"><i class="fa fa-calendar"></i></span>
+                                        <label class="c-field__label u-hidden-visually" for="Fecha">Disabled Input</label>
+                                        <input class="c-input" data-toggle="datepicker" id="Fecha" type="text" name="Fecha" placeholder="Focus to open caleendar">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="c-field u-mb-small col-12">
-                                <label class="c-field__label" for="Estado">Estado</label>
-                                <select name="Estado" class="c-input" id="Estado<">
-                                    <!-- Opciones de la lista -->
-                                    <option value="Activo">Activo</option>
-                                    <option value="Inactivo" selected>Inactivo</option>
-                                </select>
+                         </div>
+                            <div class="row">
+                                <div class="c-field u-mb-small col-12">
+                                    <label class="c-field__label" for="Estado">Estado</label>
+                                    <select name="Estado" class="c-input" id="Estado<">
+                                        <!-- Opciones de la lista -->
+                                        <option value="Activo">Activo</option>
+                                        <option value="Inactivo" selected>Inactivo</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="u-text-center">
-                            @Html.ActionLink("Regresar", "Index", new { }, new { @class = "c-btn c-btn--success" })
-                            <button class="c-btn c-btn--info c-btn btnAjax" type="submit">
-                                Guardar
-                                <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
-                            </button>
-                        </div>
-                    </form>
+                            <div class="u-text-center">
+                                @Html.ActionLink("Regresar", "Index", new { }, new { @class = "c-btn c-btn--success" })
+                                <button class="c-btn c-btn--info c-btn btnAjax" type="submit">
+                                    Guardar
+                                    <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
+                                </button>
+                            </div>
+</form>
 
                 </div>
             </div><!-- // .c-modal__content -->

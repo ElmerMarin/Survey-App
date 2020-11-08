@@ -369,12 +369,12 @@ function funAdmin(id, tipo, evt) {
     }
 }
 
-function funEncuestas(id, tipo, evt) {
+function funPacientes(id, tipo, evt) {
     evt.preventDefault();
     if (tipo == 'E') {
         $.ajax({
             type: "POST",
-            url:"~/Encuestas/DeleteConfirmed",
+            url: urlGeneral + "Pacientes/Eliminar",
             data: "{Id: " + id + "}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -407,16 +407,27 @@ function funEncuestas(id, tipo, evt) {
         $("#modal8").modal("show");
         $.ajax({
             type: "POST",
-            url: "~/Encuetas/Edit",
+            url: urlGeneral + "Pacientes/Get",
             data: "{Id: " + id + "}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
                 if (response.IsSuccess == true) {
-                    $("#Id").val(response.Id);
-                    $("#Titulo").val(response.Titulo);
-                    $("#Descripcion").val(response.Descripcion);
-                    $("#Estado").val(response.Estado);
+                    $("#IdPaciente").val(response.Result.IdPaciente);
+                    $("#Dni").val(response.Result.Dni);
+                    $("#Nombres").val(response.Result.Nombres);
+                    $("#Apaterno").val(response.Result.ApellidoPaterno);
+                    $("#Amaterno").val(response.Result.ApellidoMaterno);
+                    $("#Profesion").val(response.Result.Profesion);
+                    $("#Direccion").val(response.Result.Direccion);
+                    $("#Edad").val(response.Result.Edad);                    
+                    $("#Sexo").val(response.Result.Sexo);                    
+                    $("#telefono").val(response.Result.Telefono);
+                    $("#FechaNacimiento").val(response.Result3.toLocaleString('en-GB'));
+                    $("#Correo").val(response.Result2.Correo);
+                    $("#NombreUsu").val(response.Result2.NombreUsuario);
+                    $("#TipoUsu").val(response.Result2.TipoUsuario);
+                    $("#IdUsuario").val(response.Result2.IdUsuario);
                     removeInfoForm(formAjaxAdd);
 
                 } else {
@@ -584,12 +595,10 @@ function funUsuario(id, tipo, evt) {
                     $("#Nombres").val(response.Result.Nombres);
                     $("#ApellidoPatern").val(response.Result.ApellidoPaterno);
                     $("#ApellidoMatern").val(response.Result.ApellidoMaterno);
-                    $("#Profesion").val(response.Result.Profesion);
                     $("#Direccion").val(response.Result.Direccion);
                     $("#Edad").val(response.Result.Edad);
                     $("#Sexo").val(response.Result.Sexo);
                     $("#Telefon").val(response.Result.Telefono);
-                    $("#FechaNacimiento").val(response.Result3.toLocaleString('en-GB'));
                     $("#Correo").val(response.Result2.Correo);
                     $("#IdUsuario").val(response.Result2.IdUsuario);
                     $("#NombreUsu").val(response.Result2.NombreUsuario);

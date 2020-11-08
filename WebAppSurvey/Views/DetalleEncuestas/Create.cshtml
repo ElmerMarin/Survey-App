@@ -1,4 +1,4 @@
-﻿@model Model.Categorias
+﻿@model Model.DetalleEncuesta
 
 @{
     ViewBag.Title = "Create";
@@ -22,19 +22,23 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="c-field u-mb-small">
-                                    <label class="c-field__label" for="Nombre">Nombre</label>
-                                    <input class="c-input" type="text" id="Nombre" required="required" name="Nombre" placeholder="Nombre">
+                                    <label class="c-field__label" for="FechaInicio">Fecha de Inicio</label>
+                                    <div class="c-field has-addon-left">
+                                        <span class="c-field__addon"><i class="fa fa-calendar"></i></span>
+                                        <label class="c-field__label u-hidden-visually" for="FechaInicio">Disabled Input</label>
+                                        <input class="c-input" data-toggle="datepicker" id="FechaInicio" type="text" name="FechaInicio" placeholder="Focus to open caleendar">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="c-field u-mb-small">
-                                    <label class="c-field__label" for="Profesion">Fecha</label>
+                                    <label class="c-field__label" for="FechaFinal">Fecha Final</label>
                                     <div class="c-field has-addon-left">
                                         <span class="c-field__addon"><i class="fa fa-calendar"></i></span>
-                                        <label class="c-field__label u-hidden-visually" for="Fecha">Disabled Input</label>
-                                        <input class="c-input" data-toggle="datepicker" id="Fecha" type="text" name="Fecha" placeholder="Focus to open caleendar">
+                                        <label class="c-field__label u-hidden-visually" for="FechaFinal">Disabled Input</label>
+                                        <input class="c-input" data-toggle="datepicker" id="FechaFinal" type="text" name="FechaFinal" placeholder="Focus to open caleendar">
                                     </div>
                                 </div>
                             </div>
@@ -51,9 +55,23 @@
                         </div>
                         <div class="row">
                             <div class="c-field u-mb-small col-12">
+                                @Html.LabelFor(model => model.IdEncuesta,"IdEncuesta", htmlAttributes: new { @class = "c-field u-mb-small col-12 c-field__label" })
+                                @Html.DropDownList("IdEncuesta", null, htmlAttributes: new { @class = "c-field u-mb-small col-12 c-field__label c-input" })
+                                @Html.ValidationMessageFor(model => model.IdEncuesta, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="c-field u-mb-small col-12">
                                 @Html.LabelFor(model => model.IdArea, "IdArea", htmlAttributes: new { @class = "c-field u-mb-small col-12 c-field__label" })
                                 @Html.DropDownList("IdArea", null, htmlAttributes: new { @class = "c-field u-mb-small col-12 c-field__label c-input" })
                                 @Html.ValidationMessageFor(model => model.IdArea, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="c-field u-mb-small col-12">
+                                @Html.LabelFor(model => model.IdCategoria, "IdCategoria", htmlAttributes: new { @class = "c-field u-mb-small col-12 c-field__label" })
+                                @Html.DropDownList("IdCategoria", null, htmlAttributes: new { @class = "c-field u-mb-small col-12 c-field__label c-input" })
+                                @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="u-text-center">

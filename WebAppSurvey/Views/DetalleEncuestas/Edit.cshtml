@@ -1,4 +1,4 @@
-﻿@model Model.Categorias
+﻿@model Model.DetalleEncuesta
 
 @{
     ViewBag.Title = "Edit";
@@ -22,21 +22,23 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="c-field u-mb-small">
-                                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "c-field__label" })
-                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "c-input" } })
-                                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-
+                                <label class="c-field__label" for="FechaInicio">Fecha de Inicio</label>
+                                <div class="c-field has-addon-left">
+                                    <span class="c-field__addon"><i class="fa fa-calendar"></i></span>
+                                    <label class="c-field__label u-hidden-visually" for="FechaInicio">Disabled Input</label>
+                                    <input class="c-input" data-toggle="datepicker" id="FechaInicio" type="text" name="FechaInicio" placeholder="Focus to open caleendar">
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="c-field u-mb-small">
-                                <label class="c-field__label" for="Profesion">Fecha</label>
+                                <label class="c-field__label" for="FechaFinal">Fecha Final</label>
                                 <div class="c-field has-addon-left">
                                     <span class="c-field__addon"><i class="fa fa-calendar"></i></span>
-                                    <label class="c-field__label u-hidden-visually" for="Fecha">Disabled Input</label>
-                                    <input class="c-input" data-toggle="datepicker" id="Fecha" type="text" name="Fecha" placeholder="Focus to open caleendar">
+                                    <label class="c-field__label u-hidden-visually" for="FechaFinal">Disabled Input</label>
+                                    <input class="c-input" data-toggle="datepicker" id="FechaFinal" type="text" name="FechaFinal" placeholder="Focus to open caleendar">
                                 </div>
                             </div>
                         </div>
@@ -53,14 +55,30 @@
                     <div class="row">
                         <div class="c-field u-mb-small col-12">
                             <label class="c-field__label" for="EstadoFinal">Encuesta</label>
+                            @Html.DropDownList("IdEncuesta", null, htmlAttributes: new { @class = "c-field u-mb-small col-12 c-field__label c-input" })
+                            @Html.ValidationMessageFor(model => model.IdEncuesta, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="c-field u-mb-small col-12">
+                            <label class="c-field__label" for="EstadoFinal">Area</label>
                             @Html.DropDownList("IdArea", null, htmlAttributes: new { @class = "c-field u-mb-small col-12 c-field__label c-input" })
                             @Html.ValidationMessageFor(model => model.IdArea, "", new { @class = "text-danger" })
 
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="c-field u-mb-small col-12">
+                            <label class="c-field__label" for="EstadoFinal">Categoria</label>
+                            @Html.DropDownList("IdCategoria", null, htmlAttributes: new { @class = "c-field u-mb-small col-12 c-field__label c-input" })
+                            @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
 
                     <div class="u-text-center">
-                        @Html.ActionLink("Regresar", "Index",new { }, new { @class = "c-btn c-btn--success" })
+                        @Html.ActionLink("Regresar", "Index", new { }, new { @class = "c-btn c-btn--success" })
                         <button class="c-btn c-btn--info c-btn btnAjax" type="submit">
                             Guardar
                             <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
@@ -81,7 +99,10 @@
 
             document.getElementById('Estado').value = "@Model.Estado";
             document.getElementById('IdArea').value = "@Model.IdArea";
-            document.getElementById('Fecha').value="@Model.Fecha";
+            document.getElementById('IdCategoria').value = "@Model.IdCategoria";
+            document.getElementById('IdEncuesta').value = "@Model.IdEncuesta";
+            document.getElementById('FechaInicio').value = "@Model.FechaInicio";
+            document.getElementById('FechaFinal').value="@Model.Fechafinal";
 
         });
 

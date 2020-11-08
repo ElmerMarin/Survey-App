@@ -152,21 +152,28 @@
     <Compile Include="Controllers\ApiRestController.cs" />
     <Compile Include="Controllers\AreasController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\DetalleEncuestasController.cs" />
     <Compile Include="Controllers\EncuestasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PreguntasController.cs" />
     <Compile Include="Controllers\RespuestasController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\VerificarSession.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CoordinadorService.cs" />
     <Compile Include="Helpers\CryproHelper.cs" />
+    <Compile Include="Helpers\EncuestadoService.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Helpers\ToolsHelper.cs" />
+    <Compile Include="Models\Coordinador.cs" />
     <Compile Include="Models\Encuesta.cs" />
+    <Compile Include="Models\Encuestado.cs" />
     <Compile Include="Models\Pregunta.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Models\Respuesta.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -438,6 +445,13 @@
     <Content Include="Views\Encuestas\BuscarEncuestas.cshtml" />
     <Content Include="Views\Encuestas\ResultadosFinales.cshtml" />
     <Content Include="Views\Shared\_ViewResultado.cshtml" />
+    <Content Include="Views\DetalleEncuestas\Create.cshtml" />
+    <Content Include="Views\DetalleEncuestas\Delete.cshtml" />
+    <Content Include="Views\DetalleEncuestas\Details.cshtml" />
+    <Content Include="Views\DetalleEncuestas\Edit.cshtml" />
+    <Content Include="Views\DetalleEncuestas\Index.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\ListaUsuarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

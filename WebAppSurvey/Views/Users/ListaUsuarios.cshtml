@@ -1,0 +1,113 @@
+﻿@model PagedList.IPagedList<Model.Usuarios>
+@using PagedList.Mvc
+
+<table class="c-table c-table--highlight u-mb-small">
+    <caption class="c-table__title">
+        <div class="row">
+            <div class="col-md-6">
+                Usuarios<small>20</small>
+                <button type="button" class="c-btn c-btn--info" data-toggle="modal" data-target="#modal8" id="nuevo" onclick="seleccion()">
+                    Agregar Usuario
+                </button>
+            </div>
+            <div class="col-md-6">
+                <div class="c-field has-addon-right">
+                    <input class="c-input" id="txtBuscar" type="text" placeholder="Buscar..." value="@ViewBag.Buscar">
+                    <button id="btnBuscar" type="button" class="c-btn c-btn--info c-field__addon">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </caption>
+    <thead class="c-table__head c-table__head--slim">
+
+        <tr class="c-table__row">
+            <th class="c-table__cell c-table__cell--head">N°</th>
+            <th class="c-table__cell c-table__cell--head">Nombre de Usuario</th>
+            <th class="c-table__cell c-table__cell--head">Tipo de Usuario</th>
+            <th class="c-table__cell c-table__cell--head">
+                <span class="u-hidden-visually">Tools</span>
+            </th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @if (Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr class="c-table__row">
+                    <td class="c-table__cell">
+                        @item.Id
+                    </td>
+                    <td class="c-table__cell">
+                        @item.NombreUsuario
+
+                    </td>
+                    <td class="c-table__cell">
+                        @item.TipoUsuario
+                    </td>
+                    <td class="c-table__cell u-text-right">
+                        <div>
+                            <a class="c-btn c-btn--success" href="#!" onclick="funUsuario(@item.Id, 'M', event);">
+                                <i class="fa fa-pencil-square-o u-mr-xsmall"></i>Editar
+                            </a>
+                            <a class="c-btn c-btn--danger" href="#!" onclick="funUsuario(@item.Id, 'E', event);">
+                                <i class="fa fa-trash-o u-mr-xsmall"></i>Eliminar
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td class="c-table__cell" colspan="10">
+                    No tienes productos registrados
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+</div>
+<div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
+    @Html.PagedListPager(Model, page => Url.Action("ListaUsuarios", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
+</div>
+<script>
+    var permiteOrdenar = '';
+    $(document).ready(function () {
+        $(".permiteOrdenar").on("click", function () {
+            permiteOrdenar = $(this).data("order");
+            cargaTabla($(this).data("order"), $("#txtBuscar").val());
+        });
+        $("#btnBuscar").click(function () {
+            cargaTabla(permiteOrdenar, $("#txtBuscar").val());
+        });
+        $("#datatable_paginate").on("click", 'a', function (e) {
+            e.preventDefault();
+            $("#msgCargando").show();
+            $.ajax({
+                url: this.href,
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $("#msgCargando").hide();
+                    $('#divProductos').html(result);
+                }
+            });
+        });
+    });
+    $("#nuevo").click(function () {
+        document.getElementById("TipoUsuarios").disabled = false;
+    });
+
+
+</script>
+
+
+
