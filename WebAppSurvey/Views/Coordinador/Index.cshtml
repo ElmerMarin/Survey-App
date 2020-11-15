@@ -1,4 +1,4 @@
-﻿@model Model.Usuarios
+﻿@model Model.Coordinadores
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,7 +26,7 @@
                 </span>
             </div>
             <div class="c-modal__body">
-                <form class="c-card__body formAjax2" method="post" action="~/Users/Add">
+                <form class="c-card__body formAjax2" method="post" action="~/Coordinador/Add">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="c-field u-mb-small">
@@ -37,7 +37,7 @@
                         <div class="col-md-6">
                             <div class="c-field u-mb-small">
                                 <label class="c-field__label" for="Nombres">Nombres</label>
-                                <input class="c-input" type="text" id="NombresUsu" required="required" name="Nombres" placeholder="Nombres">
+                                <input class="c-input" type="text" id="NombreUsuario" required="required" name="NombresUsu" placeholder="Nombres">
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="c-field u-mb-small col-4">
                             <label class="c-field__label" for="NombreUsuario">Nombre Usuario</label>
-                            <input class="c-input" type="text" id="NombreUsuario" required="required" name="NombreUsuario" placeholder="Usuario">
+                            <input class="c-input" type="text" id="NombreUsuarios" required="required" name="NombreUsuario" placeholder="Usuario">
                         </div>
                         <div class="c-field u-mb-small col-4">
                             <label class="c-field__label" for="TipoUsuario">Tipo de Usuario</label>
@@ -91,7 +91,7 @@
 
                         <div class="c-field u-mb-small col-6">
                             <label class="c-field__label" for="Correo">Correo electrónico</label>
-                            <input class="c-input" type="text" id="CorreoUsu" required="required" name="Correo" placeholder="clark@dashboard.com">
+                            <input class="c-input" type="text" id="CorreoUsu" required="required" name="CorreoUsuario" placeholder="clark@dashboard.com">
                         </div>
                         <div class="c-field u-mb-small col-6">
                             <label class="c-field__label" for="telefono">Telefono</label>
@@ -106,7 +106,7 @@
                         <div class="c-field u-mb-small col-6">
                             <label class="c-field__label" for="input2">Repetir Contraseña</label>
                             <input class="c-input" type="password" id="re-ContraseñaUsu" required="required" EqualTo="#ContraseñaUsu" placeholder="*****">
-                        </div>
+                        </div>                        
                         <input type="hidden" name="IdUsuario" id="IdUsuario2" />
                     </div>
                     <div class="u-text-right">
@@ -129,13 +129,13 @@
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
             <div class="c-modal__header u-bg-primary">
-                <h3 class="c-modal__title">Usuarios</h3>
+                <h3 class="c-modal__title">Coordinadores</h3>
                 <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
                     <i class="fa fa-close"></i>
                 </span>
             </div>
             <div class="c-modal__body">
-                <form class="c-card__body formAjax" method="post" action="~/Users/Add">
+                <form class="c-card__body formAjax" method="post" action="~/Coordinador/Add">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="c-field u-mb-small">
@@ -200,7 +200,7 @@
 
                         <div class="c-field u-mb-small col-6">
                             <label class="c-field__label" for="Correo">Correo electrónico</label>
-                            <input class="c-input" type="text" id="Correo" required="required" name="Correo" placeholder="clark@dashboard.com">
+                            <input class="c-input" type="text" id="CorreoUsu" required="required" name="Correo" placeholder="clark@dashboard.com">
                         </div>
                         <div class="c-field u-mb-small col-6">
                             <label class="c-field__label" for="telefono">Telefono</label>
@@ -265,16 +265,15 @@
 
 
             $.ajaxSetup({ cache: false })
-            $('#divProductos').load(urlGeneral + 'Users/ListaUsuarios' + val + valOrder, function (response, status, xhr) {
+            $('#divProductos').load(urlGeneral + 'Coordinador/ListaCoordinadores' + val + valOrder, function (response, status, xhr) {
                 $("#msgCargando").hide()
             });
 
             var elemento = document.getElementsByClassName("c-sidebar__link");
             elemento[0].classList.remove("is-active");
-            elemento[6].className += " is-active";
+            elemento[5].className += " is-active";
         }
     </script>
     <script src="~/Content/js/custom.js"></script>
 }
-
 

@@ -23,6 +23,7 @@ namespace WebAppSurvey.Helpers
                 UpdateEncuestado.NombreUsuario = usuario.NombreUsuario;
                 UpdateEncuestado.Contraseña = strPass;
                 UpdateEncuestado.Correo = usuario.Correo;
+                UpdateEncuestado.TipoUsuario = usuario.TipoUsuario;
                 db.Entry(UpdateEncuestado).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -56,12 +57,13 @@ namespace WebAppSurvey.Helpers
                     TipoUsuario = "Encuestado",
                     NombreUsuario = usuario.NombreUsuario,
                     Contraseña = strPass,
-                    Correo = usuario.Correo
+                    Correo = usuario.Correo,
+                    Token = ""
 
                 });
                 db.Usuarios.Add(objUsuarios);
                 db.SaveChanges();
-
+                
                 var objUsuID = db.Usuarios.Where(c => c.NombreUsuario == objUsuarios.NombreUsuario).Select(b=>b.Id).FirstOrDefault();
 
                 var objUsuNew = (new Encuestados
@@ -76,6 +78,8 @@ namespace WebAppSurvey.Helpers
                     Telefono = encuestado.Telefono,
                     IdUsuario = objUsuID
                 });
+                db.Encuestados.Add(objUsuNew);
+                db.SaveChanges();
             }
             catch (Exception e)
             {
@@ -100,7 +104,7 @@ namespace WebAppSurvey.Helpers
                 Direccion = encuestado.Direccion,
                 Edad = encuestado.Edad,
                 Sexo = encuestado.Sexo,
-                Telefono = encuestado.Telefono,
+                Telefono = encuestado.Telefono
             };
 
             objetos.Add(Psico);

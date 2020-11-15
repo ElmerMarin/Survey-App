@@ -1,11 +1,11 @@
-﻿@model PagedList.IPagedList<Model.Usuarios>
+﻿@model PagedList.IPagedList<Model.Coordinadores>
 @using PagedList.Mvc
 
 <table class="c-table c-table--highlight u-mb-small">
     <caption class="c-table__title">
         <div class="row">
             <div class="col-md-6">
-                Usuarios<small>20</small>
+                Coordinadores<small>20</small>
                 <button type="button" class="c-btn c-btn--info" data-toggle="modal" data-target="#modal8" id="nuevo">
                     Agregar Usuario
                 </button>
@@ -40,21 +40,21 @@
             {
                 <tr class="c-table__row">
                     <td class="c-table__cell">
-                        @item.Id
+                        @item.IdCoordinador
                     </td>
                     <td class="c-table__cell">
-                        @item.NombreUsuario
+                        @item.ApellidoPaterno
 
                     </td>
                     <td class="c-table__cell">
-                        @item.TipoUsuario
+                        @item.ApellidoMaterno
                     </td>
                     <td class="c-table__cell u-text-right">
                         <div>
-                            <a class="c-btn c-btn--success" href="#!" onclick="funUsuario(@item.Id, 'M', event);">
+                            <a class="c-btn c-btn--success" href="#!" onclick="funCoordinador(@item.IdCoordinador, 'M', event);">
                                 <i class="fa fa-pencil-square-o u-mr-xsmall"></i>Editar
                             </a>
-                            <a class="c-btn c-btn--danger" href="#!" onclick="funUsuario(@item.Id, 'E', event);">
+                            <a class="c-btn c-btn--danger" href="#!" onclick="funCoordinador(@item.IdCoordinador, 'E', event);">
                                 <i class="fa fa-trash-o u-mr-xsmall"></i>Eliminar
                             </a>
                         </div>
@@ -76,7 +76,7 @@
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 </div>
 <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-    @Html.PagedListPager(Model, page => Url.Action("ListaUsuarios", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
+    @Html.PagedListPager(Model, page => Url.Action("ListaCoordinadores", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
 </div>
 <script>
     var permiteOrdenar = '';
@@ -108,6 +108,7 @@
 
 
 </script>
+
 
 
 

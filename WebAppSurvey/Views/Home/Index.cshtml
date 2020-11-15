@@ -7,7 +7,7 @@
 }
 
 
-@if (HttpContext.Current.Session["TipoUsuario"].Equals("Administrador"))
+@if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
 {
     <div class="row">
         <div class="col-sm-12 col-lg-6 col-xl-3">
@@ -86,12 +86,12 @@
                 </div>
                 <div class="c-state-card__content">
                     <h5 class="c-state-card__number">
-
+                        Inicio
                         <span class="c-state-card__status u-bg-green">
                             <i class="fa fa-caret-up"></i>
                         </span>
                     </h5>
-                    <p><a href="~/Citas" class="c-state-card__meta">Citas</a></p>
+                    <p><a href="~/Home/Index" class="c-state-card__meta">Inicio</a></p>
                 </div>
             </div>
         </div><!-- // .col-md-3 -->
@@ -102,12 +102,12 @@
                 </div>
                 <div class="c-state-card__content">
                     <h5 class="c-state-card__number">
-                        Test
+                        Encuestas
                         <span class="c-state-card__status u-bg-green">
                             <i class="fa fa-caret-up"></i>
                         </span>
                     </h5>
-                    <p><a href="~/Encuestas" class="c-state-card__meta">Test</a></p>
+                    <p><a href="~/Encuestas/Index" class="c-state-card__meta">Encuestas</a></p>
                 </div>
             </div>
         </div><!-- // .col-md-3 -->
@@ -175,18 +175,17 @@
                             <label class="c-field__label" for="TipoUsuario">Tipo de Usuario</label>
                             <select name="TipoUsuario" class="c-input" id="TipoUsuario">
                                 <!-- Opciones de la lista -->
-                                <option value="Paciente">Paciente</option>
-                                <option value="Psicologo">Psicologo</option>
-                                <option value="Administrador" selected>Administrador</option>
+                                <option value="Coordinador">Coordinador</option>
+                                <option value="Encuestado" selected>Encuestado</option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="c-field u-mb-small col-4">
+                        <div class="c-field u-mb-small col-6">
                             <label class="c-field__label" for="Edad">Edad</label>
                             <input class="c-input" type="text" id="EdadUsu" required="required" name="Edad" placeholder="Edad">
                         </div>
-                        <div class="c-field u-mb-small col-4">
+                        <div class="c-field u-mb-small col-6">
                             <label class="c-field__label" for="Sexo">Sexo</label>
                             <select name="Sexo" class="c-input" id="SexoUsu">
                                 <!-- Opciones de la lista -->
@@ -194,26 +193,13 @@
                                 <option value="Femenino" selected>Femenino</option>
                             </select>
                         </div>
-                        <div class="c-field u-mb-small col-4">
-                            <label class="c-field__label" for="Profesion">Profesion</label>
-                            <input class="c-input" type="text" id="ProfesionUsu" required="required" name="Profesion" placeholder="Profesion">
-                        </div>
                     </div>
                     <div class="row">
-                        <div class="c-field u-mb-small col-4">
-                            <label class="c-field__label" for="Profesion">Fecha Nacimiento</label>
-                            <div class="c-field has-addon-left">
-                                <span class="c-field__addon"><i class="fa fa-calendar"></i></span>
-                                <label class="c-field__label u-hidden-visually" for="FechaNacimiento">Disabled Input</label>
-                                <input class="c-input" data-toggle="datepicker" id="FechaNacimientoUsu" type="text" name="FechaNacimiento" placeholder="Focus to open caleendar">
-                            </div>
-                        </div>
-
-                        <div class="c-field u-mb-small col-4">
+                        <div class="c-field u-mb-small col-6">
                             <label class="c-field__label" for="Correo">Correo electrónico</label>
                             <input class="c-input" type="text" id="CorreoUsu" required="required" name="Correo" placeholder="clark@dashboard.com">
                         </div>
-                        <div class="c-field u-mb-small col-4">
+                        <div class="c-field u-mb-small col-6">
                             <label class="c-field__label" for="telefono">Telefono</label>
                             <input class="c-input" type="text" id="Telefono" required="required" name="Telefono" placeholder="Telefono">
                         </div>

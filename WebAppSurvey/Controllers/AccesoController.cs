@@ -51,7 +51,7 @@ namespace WebAppSurvey.Controllers
                 }
 
 
-                else if (TipoUsuario == "Administrador")
+                else if (TipoUsuario == "Coordinador")
                 {
 
                     if (objUsu.Contraseña == password)

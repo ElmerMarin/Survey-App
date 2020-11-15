@@ -1,4 +1,4 @@
-﻿@model Model.Usuarios
+﻿@model Model.Encuestados
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,7 +26,7 @@
                 </span>
             </div>
             <div class="c-modal__body">
-                <form class="c-card__body formAjax2" method="post" action="~/Users/Add">
+                <form class="c-card__body formAjax2" method="post" action="~/Encuestados/Add">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="c-field u-mb-small">
@@ -129,13 +129,13 @@
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
             <div class="c-modal__header u-bg-primary">
-                <h3 class="c-modal__title">Usuarios</h3>
+                <h3 class="c-modal__title">Encuestados</h3>
                 <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
                     <i class="fa fa-close"></i>
                 </span>
             </div>
             <div class="c-modal__body">
-                <form class="c-card__body formAjax" method="post" action="~/Users/Add">
+                <form class="c-card__body formAjax" method="post" action="~/Encuestados/Add">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="c-field u-mb-small">
@@ -265,16 +265,17 @@
 
 
             $.ajaxSetup({ cache: false })
-            $('#divProductos').load(urlGeneral + 'Users/ListaUsuarios' + val + valOrder, function (response, status, xhr) {
+            $('#divProductos').load(urlGeneral + 'Encuestados/ListaEncuestados' + val + valOrder, function (response, status, xhr) {
                 $("#msgCargando").hide()
             });
 
             var elemento = document.getElementsByClassName("c-sidebar__link");
             elemento[0].classList.remove("is-active");
-            elemento[6].className += " is-active";
+            elemento[4].className += " is-active";
         }
     </script>
     <script src="~/Content/js/custom.js"></script>
 }
+
 
 

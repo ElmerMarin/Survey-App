@@ -152,7 +152,9 @@
     <Compile Include="Controllers\ApiRestController.cs" />
     <Compile Include="Controllers\AreasController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\CoordinadorController.cs" />
     <Compile Include="Controllers\DetalleEncuestasController.cs" />
+    <Compile Include="Controllers\EncuestadosController.cs" />
     <Compile Include="Controllers\EncuestasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PreguntasController.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="Helpers\EncuestadoService.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Helpers\ToolsHelper.cs" />
+    <Compile Include="Helpers\VerificarEncuesta.cs" />
     <Compile Include="Models\Coordinador.cs" />
     <Compile Include="Models\Encuesta.cs" />
     <Compile Include="Models\Encuestado.cs" />
@@ -452,6 +455,10 @@
     <Content Include="Views\DetalleEncuestas\Index.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\ListaUsuarios.cshtml" />
+    <Content Include="Views\Coordinador\Index.cshtml" />
+    <Content Include="Views\Coordinador\ListaCoordinadores.cshtml" />
+    <Content Include="Views\Encuestados\Index.cshtml" />
+    <Content Include="Views\Encuestados\ListaEncuestados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

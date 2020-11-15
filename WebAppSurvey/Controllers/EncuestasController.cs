@@ -26,7 +26,7 @@ namespace WebAppSurvey.Controllers
             if (string.IsNullOrEmpty(valSearch))
                 objEncuestas = db.Encuestas.Where(c => true).OrderBy(c => c.Id).ToList();
             else
-                objEncuestas = db.Encuestas.Where(c => true && (c.Descripcion.Contains(valSearch) || c.Titulo.Contains(valSearch))).OrderBy(c => c.Id).ToList();
+                objEncuestas = db.Encuestas.Where(c => true && (c.Descripcion.Contains(valSearch) || c.Titulo.Contains(valSearch)||c.Estado.Contains(valSearch))).OrderBy(c => c.Id).ToList();
 
             int pageSize = 5;
             int pageNumber = page ?? 1;
@@ -42,7 +42,7 @@ namespace WebAppSurvey.Controllers
             if (string.IsNullOrEmpty(valSearch))
                 objEncuestas = db.Encuestas.Where(c => true).OrderBy(c => c.Id).ToList();
             else
-                objEncuestas = db.Encuestas.Where(c => true && (c.Descripcion.Contains(valSearch) || c.Titulo.Contains(valSearch))).OrderBy(c => c.Id).ToList();
+                objEncuestas = db.Encuestas.Where(c => true && (c.Descripcion.Contains(valSearch) || c.Titulo.Contains(valSearch)||c.Estado.Contains(valSearch))).OrderBy(c => c.Id).ToList();
 
             int pageSize = 5;
             int pageNumber = page ?? 1;
@@ -159,7 +159,7 @@ namespace WebAppSurvey.Controllers
 
         }
 
-
+        
         public ActionResult GenerarEncuesta(int? id)
         {
 

@@ -26,7 +26,7 @@
 </head>
 @if (Session["TipoUsuario"] == null)
 {
-    Response.Redirect("~/Acceso/Index");
+    Response.Redirect("~/Acceso/Login");
 }
 else
 {
@@ -47,7 +47,7 @@ else
                             <i class="fa fa-home u-mr-xsmall"></i>Inicio
                         </a>
                     </li>
-                    @if (HttpContext.Current.Session["TipoUsuario"].Equals("Administrador"))
+                    @if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
                     {
                         <li class="c-sidebar__item">
                             <a class="c-sidebar__link " href="~/Areas/Index">
@@ -76,7 +76,7 @@ else
                     }
 
                 </ul>
-                @if (HttpContext.Current.Session["TipoUsuario"].Equals("Administrador"))
+                @if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
                 {
                     <h4 class="c-sidebar__title">Perfiles</h4>
                     <ul class="c-sidebar__list">
@@ -86,8 +86,8 @@ else
                             </a>
                         </li>
                         <li class="c-sidebar__item">
-                            <a class="c-sidebar__link" href="~/Administradores/Index">
-                                <i class="fa fa-cog u-mr-xsmall"></i>Administradores
+                            <a class="c-sidebar__link" href="~/Coordinador/Index">
+                                <i class="fa fa-cog u-mr-xsmall"></i>Coordinadores
                             </a>
                         </li>
                         <li class="c-sidebar__item">

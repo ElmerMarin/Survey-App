@@ -16,12 +16,14 @@ namespace WebAppSurvey.Helpers
             string strMensaje = "Error";
             Usuarios UpdateEncuestado = db.Usuarios.Where(c => c.Id == usuario.Id).FirstOrDefault();
             string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
-            Encuestados objUsuID = db.Encuestados.Where(c => c.IdUsuario == UpdateEncuestado.Id).FirstOrDefault();
+            Coordinadores objUsuID = db.Coordinadores.Where(c => c.IdUsuario == UpdateEncuestado.Id).FirstOrDefault();
             if (objUsuID != null)
             {
                 UpdateEncuestado.NombreUsuario = usuario.NombreUsuario;
                 UpdateEncuestado.Contraseña = strPass;
                 UpdateEncuestado.Correo = usuario.Correo;
+                UpdateEncuestado.TipoUsuario = usuario.TipoUsuario;
+                UpdateEncuestado.Token = "";
                 db.Entry(UpdateEncuestado).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -45,17 +47,18 @@ namespace WebAppSurvey.Helpers
 
         public string crear(Usuario usuario, Coordinador coordinador)
         {
-            string strMensaje = "Se agrego el Encuestado correctamente";
+            string strMensaje = "Se agrego el Coordinador correctamente";
 
             try
             {
                 string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
                 var objUsuarios = (new Usuarios
                 {
-                    TipoUsuario = "Encuestado",
+                    TipoUsuario = "Coordinador",
                     NombreUsuario = usuario.NombreUsuario,
                     Contraseña = strPass,
-                    Correo = usuario.Correo
+                    Correo = usuario.Correo,
+                    Token = ""
 
                 });
                 db.Usuarios.Add(objUsuarios);
@@ -63,7 +66,7 @@ namespace WebAppSurvey.Helpers
 
                 var objUsuID = db.Usuarios.Where(c => c.NombreUsuario == objUsuarios.NombreUsuario).Select(b => b.Id).FirstOrDefault();
 
-                var objUsuNew = (new Encuestados
+                var objUsuNew = (new Coordinadores
                 {
                     Dni = coordinador.Dni,
                     Nombres = coordinador.Nombres,
@@ -75,6 +78,8 @@ namespace WebAppSurvey.Helpers
                     Telefono = coordinador.Telefono,
                     IdUsuario = objUsuID
                 });
+                db.Coordinadores.Add(objUsuNew);
+                db.SaveChanges();
             }
             catch (Exception e)
             {
@@ -100,6 +105,7 @@ namespace WebAppSurvey.Helpers
                 Edad = coordinador.Edad,
                 Sexo = coordinador.Sexo,
                 Telefono = coordinador.Telefono,
+                
             };
 
             objetos.Add(Psico);
