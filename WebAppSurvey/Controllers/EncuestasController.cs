@@ -17,25 +17,7 @@ namespace WebAppSurvey.Controllers
         private SystemEncuestas db = new SystemEncuestas();
 
         // GET: Encuestas
-        [HttpPost]
         public ActionResult Index(string valSearch, int? page)
-        {
-            //return View(db.Encuestas.ToList());
-            ViewBag.Buscar = valSearch;
-            List<Encuestas> objEncuestas = new List<Encuestas>();
-            if (string.IsNullOrEmpty(valSearch))
-                objEncuestas = db.Encuestas.Where(c => true).OrderBy(c => c.Id).ToList();
-            else
-                objEncuestas = db.Encuestas.Where(c => true && (c.Descripcion.Contains(valSearch) || c.Titulo.Contains(valSearch)||c.Estado.Contains(valSearch))).OrderBy(c => c.Id).ToList();
-
-            int pageSize = 5;
-            int pageNumber = page ?? 1;
-
-
-            return View(objEncuestas.ToPagedList(pageNumber, pageSize));
-        }
-
-        public ActionResult Index(string val, string valSearch, int? page)
         {
             ViewBag.Buscar = valSearch;
             List<Encuestas> objEncuestas = new List<Encuestas>();
@@ -166,7 +148,10 @@ namespace WebAppSurvey.Controllers
             var preguntas = db.Preguntas.Where(p => p.IdEncuesta == id).ToList();
             ViewBag.preguntas = preguntas;
             ViewBag.idEncuesta = id;
-            
+            var estadoEncuesta = db.Encuestas.Where(p => p.Id == id).Select(b => b.Estado).FirstOrDefault();
+            ViewBag.estadoEncuesta = estadoEncuesta;
+
+
 
             if (preguntas == null)
             {

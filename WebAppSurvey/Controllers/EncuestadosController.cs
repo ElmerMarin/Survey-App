@@ -50,6 +50,25 @@ namespace WebAppSurvey.Controllers
         }
 
         [HttpPost]
+        public ActionResult BuscarEncuestados(string consulta, int? page = null)
+        {
+            ViewBag.Buscar = consulta;
+            List<Encuestados> objEncuestados = new List<Encuestados>();
+            if (string.IsNullOrEmpty(consulta))
+                objEncuestados = db.Encuestados.Where(c => true).OrderBy(c => c.IdEncuestado).ToList();
+            else
+                objEncuestados = db.Encuestados.Where(c => true && (c.Nombres.Contains(consulta) || c.ApellidoPaterno.Contains(consulta)|| c.ApellidoMaterno.Contains(consulta))).OrderBy(c => c.IdEncuestado).ToList();
+
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objEncuestados.ToPagedList(pageNumber, pageSize));
+        }
+
+
+        [HttpPost]
         public ActionResult Add(Encuestado encuestado, Usuario usuario)
         {
 

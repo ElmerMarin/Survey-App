@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Model;
+using PagedList;
 
 namespace WebAppSurvey.Controllers
 {
@@ -15,10 +16,39 @@ namespace WebAppSurvey.Controllers
         private SystemEncuestas db = new SystemEncuestas();
 
         // GET: DetalleEncuestas
-        public ActionResult Index()
+        public ActionResult Index(string valSearch, int? page)
         {
-            var detalleEncuesta = db.DetalleEncuesta.Include(d => d.Areas).Include(d => d.Categorias).Include(d => d.Encuestas);
-            return View(detalleEncuesta.ToList());
+
+            ViewBag.Buscar = valSearch;
+            List<DetalleEncuesta> objdetalleEncuesta = new List<DetalleEncuesta>();
+            if (string.IsNullOrEmpty(valSearch))
+                objdetalleEncuesta = db.DetalleEncuesta.Where(c => true).OrderBy(c => c.Id).ToList();
+            else
+                objdetalleEncuesta = db.DetalleEncuesta.Where(c => true && (c.Categorias.Nombre.Contains(valSearch) || c.Areas.Nombre.Contains(valSearch)||c.Encuestas.Descripcion.Contains(valSearch) || c.Estado.Contains(valSearch))).OrderBy(c => c.Id).ToList();
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return View(objdetalleEncuesta.ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        public ActionResult BuscarConfiguracion(string consulta, int? page = null)
+        {
+            ViewBag.Buscar = consulta;
+            List<DetalleEncuesta> objDetalleEncuesta = new List<DetalleEncuesta>();
+            if (string.IsNullOrEmpty(consulta))
+                objDetalleEncuesta = db.DetalleEncuesta.Where(c => true).OrderBy(c => c.Id).ToList();
+            else
+                objDetalleEncuesta = db.DetalleEncuesta.Where(c => true && (c.Areas.Nombre.Contains(consulta) || c.Categorias.Nombre.Contains(consulta) || c.Encuestas.Descripcion.Contains(consulta))).OrderBy(c => c.Id).ToList();
+
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objDetalleEncuesta.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: DetalleEncuestas/Details/5

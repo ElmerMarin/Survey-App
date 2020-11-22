@@ -1,7 +1,7 @@
 ﻿@using Model;
 
 @{
-    Layout = "~/Views/Shared/_ViewResultado.cshtml";
+
     ViewBag.Title = "GenerarEncuesta";
     SystemEncuestas db = new SystemEncuestas();
     List<Preguntas> preguntas = ViewBag.preguntas;
@@ -22,13 +22,12 @@
     }
 
     int? IdEncuesta = ViewBag.idEncuesta;
+    string estado= ViewBag.estadoEncuesta;
 
     int TotalRespuestas = 0;
     int TotalPreguntas = 0;
 
 }
-<br />
-<br />
 <table class="c-table c-table--highlight u-mb-small">
     <thead class="c-table__head c-table__head--slim">
         <tr>
@@ -69,8 +68,15 @@
 </div>
 
 
+
 @section Scripts {
     <script type="text/javascript">
+
+        var estadoEncuesta = "@estado";
+
+        if (estadoEncuesta=="Inactivo") {
+            document.getElementById("Proceso").disabled = true;
+        }
 
         var myVar = setInterval(myTimer, 1000);
         var horaFinal;
@@ -121,5 +127,24 @@
             }
         }
     </script>
+    @if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
+    {
+        <script type="text/javascript">
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[3].className += " is-active";
+        </script>
+
+    }
+    @if (HttpContext.Current.Session["TipoUsuario"].Equals("Encuestado"))
+    {
+        <script type="text/javascript">
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[1].className += " is-active";
+        </script>
+
+    }
 
 }
+

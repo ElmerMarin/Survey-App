@@ -48,6 +48,25 @@ namespace WebAppSurvey.Controllers
             return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
         }
 
+
+        [HttpPost]
+        public ActionResult BuscarCoordinadores(string consulta, int? page = null)
+        {
+            ViewBag.Buscar = consulta;
+            List<Coordinadores> objCoordinadores = new List<Coordinadores>();
+            if (string.IsNullOrEmpty(consulta))
+                objCoordinadores = db.Coordinadores.Where(c => true).OrderBy(c => c.IdCoordinador).ToList();
+            else
+                objCoordinadores = db.Coordinadores.Where(c => true && (c.Nombres.Contains(consulta) || c.ApellidoPaterno.Contains(consulta) || c.ApellidoMaterno.Contains(consulta))).OrderBy(c => c.IdCoordinador).ToList();
+
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objCoordinadores.ToPagedList(pageNumber, pageSize));
+        }
+
         [HttpPost]
         public ActionResult Add(Coordinador admin, Usuario usuario)
         {

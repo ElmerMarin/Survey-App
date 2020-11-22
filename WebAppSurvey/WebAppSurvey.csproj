@@ -459,6 +459,12 @@
     <Content Include="Views\Coordinador\ListaCoordinadores.cshtml" />
     <Content Include="Views\Encuestados\Index.cshtml" />
     <Content Include="Views\Encuestados\ListaEncuestados.cshtml" />
+    <Content Include="Views\Areas\BuscarAreas.cshtml" />
+    <Content Include="Views\Categorias\BuscarCategorias.cshtml" />
+    <Content Include="Views\Encuestados\BuscarEncuestados.cshtml" />
+    <Content Include="Views\Coordinador\BuscarCoordinadores.cshtml" />
+    <Content Include="Views\Users\BuscarUsers.cshtml" />
+    <Content Include="Views\DetalleEncuestas\BuscarConfiguracion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

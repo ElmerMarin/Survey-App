@@ -1,0 +1,78 @@
+﻿@model PagedList.IPagedList<Model.Usuarios>
+@using PagedList.Mvc
+
+
+@if (Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+
+        <tr class="c-table__row">
+            <td class="c-table__cell">
+                 @item.Id
+            </td>
+            <td class="c-table__cell">
+                @item.Correo
+            </td>
+            <td class="c-table__cell">
+                @item.NombreUsuario
+            </td>
+
+            <td class="c-table__cell u-text-right">
+                <div>
+
+                    @Html.ActionLink(" Edit", "Edit", new { id = item.Id }, new { @class = "fa fa-pencil-square-o u-mr-xsmall c-btn c-btn--success " })
+                    @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--danger" })
+
+                </div>
+            </td>
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td class="c-table__cell" colspan="10">
+            No tienes productos registrados
+        </td>
+    </tr>
+}
+<div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+</div>
+<div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
+    @Html.PagedListPager(Model, page => Url.Action("BuscarUsers", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
+</div>
+<script>
+
+
+    var permiteOrdenar = '';
+    $(document).ready(function () {
+
+        $(".permiteOrdenar").on("click", function () {
+            permiteOrdenar = $(this).data("order");
+            cargaTabla($(this).data("order"), $("#txtBuscar").val());
+        });
+        $("#btnBuscar").click(function () {
+            cargaTabla(permiteOrdenar, $("#txtBuscar").val());
+        });
+
+        $("#datatable_paginate").on("click", 'a', function (e) {
+            e.preventDefault();
+            $("#msgCargando").show();
+            $.ajax({
+                url: this.href,
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $("#msgCargando").hide();
+                    $('#divProductos').html(result);
+                }
+            });
+        });
+    });
+
+
+
+</script>
+

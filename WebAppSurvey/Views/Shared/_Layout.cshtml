@@ -104,7 +104,7 @@ else
                 }
                 @if (HttpContext.Current.Session["TipoUsuario"] == null)
                 {
-                    Response.Redirect("~/Account/Index");
+                    Response.Redirect("~/Acceso/Login");
                 }
 
             </div><!-- // .c-sidebar -->
@@ -203,7 +203,7 @@ else
         </script>
         <script src="~/Content/js/main.js"></script>
         <script src="~/Content/js/jquery.plugins.js"></script>
-
+        <script src="~/Content/js/custom.js"></script>
 
 
         @RenderSection("scripts", false)

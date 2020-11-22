@@ -26,7 +26,7 @@
                 </span>
             </div>
             <div class="c-modal__body">
-                <form class="c-card__body formAjax2" method="post" action="~/Encuestados/Add">
+                <form class="c-card__body formAjax2" method="post" action="~/Users/Add">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="c-field u-mb-small">
@@ -66,7 +66,7 @@
                         </div>
                         <div class="c-field u-mb-small col-4">
                             <label class="c-field__label" for="TipoUsuario">Tipo de Usuario</label>
-                            <select name="TipoUsuario" class="c-input" id="TipoUsuario">
+                            <select name="TipoUsuario" class="c-input" id="TipoUsu">
                                 <!-- Opciones de la lista -->
                                 <option value="Coordinador">Coordinador</option>
                                 <option value="Encuestado" selected>Encuestado</option>
@@ -107,7 +107,7 @@
                             <label class="c-field__label" for="input2">Repetir Contraseña</label>
                             <input class="c-input" type="password" id="re-ContraseñaUsu" required="required" EqualTo="#ContraseñaUsu" placeholder="*****">
                         </div>
-                        <input type="hidden" name="IdUsuario" id="IdUsuario2" />
+                        <input type="hidden" name="Id" id="IdUsu" />
                     </div>
                     <div class="u-text-right">
                         <button class="c-btn c-btn--info c-btn btnAjax2" type="submit">
@@ -233,13 +233,14 @@
 @section scripts
 {
     <script>
-
         $(function () {
             $('#FechaNacimiento').datepicker({
                 format: 'DD/MM/YYYY HH:mm A'
             });
 
         });
+
+
 
 
         var strFiltro = "";
@@ -269,12 +270,39 @@
                 $("#msgCargando").hide()
             });
 
+        function buscarEncuestados(consulta)
+        {
+        $.ajax({
+            url: "@Url.Action("BuscarEncuestados", "Encuestados")",
+            type: 'POST',
+            dataType:'html',
+            data:{consulta:consulta},
+        })
+        .done(function(respuesta){
+        $("#EncuestadosBuscados").html(respuesta);
+        })
+        .fail(function(){
+        console.log("error");
+        })
+        }
+
+        $(document).on('keyup', "#txtBuscar", function () {
+            //cargaTabla(permiteOrdenar, $("#txtBuscar").val());
+            var valor = $("#txtBuscar").val();
+                if (valor != "") {
+                    buscarEncuestados(valor);
+                }
+                else {
+                    buscarEncuestados();
+                }
+         });
+
             var elemento = document.getElementsByClassName("c-sidebar__link");
             elemento[0].classList.remove("is-active");
             elemento[4].className += " is-active";
         }
     </script>
-    <script src="~/Content/js/custom.js"></script>
+    
 }
 
 

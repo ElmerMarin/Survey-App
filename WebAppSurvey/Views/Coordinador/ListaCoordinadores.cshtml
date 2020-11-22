@@ -25,22 +25,23 @@
 
         <tr class="c-table__row">
             <th class="c-table__cell c-table__cell--head">N°</th>
-            <th class="c-table__cell c-table__cell--head">Nombre de Usuario</th>
-            <th class="c-table__cell c-table__cell--head">Tipo de Usuario</th>
+            <th class="c-table__cell c-table__cell--head">Nombres</th>
+            <th class="c-table__cell c-table__cell--head">Apellido Paterno</th>
+            <th class="c-table__cell c-table__cell--head">Apellido Materno</th>
             <th class="c-table__cell c-table__cell--head">
                 <span class="u-hidden-visually">Tools</span>
             </th>
         </tr>
 
     </thead>
-    <tbody>
+    <tbody id="CoordinadoresBuscados">
         @if (Model.Count() > 0)
         {
             foreach (var item in Model)
             {
                 <tr class="c-table__row">
                     <td class="c-table__cell">
-                        @item.IdCoordinador
+                        @item.Nombres
                     </td>
                     <td class="c-table__cell">
                         @item.ApellidoPaterno

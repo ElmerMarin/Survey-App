@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Model;
+using PagedList;
 
 namespace WebAppSurvey.Controllers
 {
@@ -16,10 +17,38 @@ namespace WebAppSurvey.Controllers
         private SystemEncuestas db = new SystemEncuestas();
 
         // GET: Categorias
-        public ActionResult Index()
+        public ActionResult Index(string valSearch, int? page)
         {
-            var categorias = db.Categorias.Include(c => c.Areas);
-            return View(categorias.ToList());
+            ViewBag.Buscar = valSearch;
+            List<Categorias> objCategorias = new List<Categorias>();
+            if (string.IsNullOrEmpty(valSearch))
+                objCategorias = db.Categorias.Where(c => true).OrderBy(c => c.Id).ToList();
+            else
+                objCategorias = db.Categorias.Where(c => true && (c.Nombre.Contains(valSearch) || c.Estado.Contains(valSearch) || c.Areas.Nombre.Contains(valSearch))).OrderBy(c => c.Id).ToList();
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return View(objCategorias.ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        public ActionResult BuscarCategorias(string consulta, int? page = null)
+        {
+            ViewBag.Buscar = consulta;
+            List<Categorias> objCategorias = new List<Categorias>();
+            if (string.IsNullOrEmpty(consulta))
+                objCategorias = db.Categorias.Where(c => true).OrderBy(c => c.Id).ToList();
+            else
+                objCategorias = db.Categorias.Where(c => true && (c.Nombre.Contains(consulta) || c.Estado.Contains(consulta))).OrderBy(c => c.Id).ToList();
+
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objCategorias.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Categorias/Details/5

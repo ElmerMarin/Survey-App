@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Model;
+using PagedList;
 
 namespace WebAppSurvey.Controllers
 {
@@ -16,10 +17,41 @@ namespace WebAppSurvey.Controllers
         private SystemEncuestas db = new SystemEncuestas();
 
         // GET: Areas
-        public ActionResult Index()
+        public ActionResult Index(string valSearch, int? page)
         {
-            return View(db.Areas.ToList());
+            
+            ViewBag.Buscar = valSearch;
+            List<Areas> objAreas = new List<Areas>();
+            if (string.IsNullOrEmpty(valSearch))
+                objAreas = db.Areas.Where(c => true).OrderBy(c => c.Id).ToList();
+            else
+                objAreas = db.Areas.Where(c => true && (c.Nombre.Contains(valSearch) || c.Estado.Contains(valSearch))).OrderBy(c => c.Id).ToList();
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return View(objAreas.ToPagedList(pageNumber, pageSize));
         }
+
+        [HttpPost]
+        public ActionResult BuscarAreas(string consulta, int? page = null)
+        {
+            ViewBag.Buscar = consulta;
+            List<Areas> objAreas = new List<Areas>();
+            if (string.IsNullOrEmpty(consulta))
+                objAreas = db.Areas.Where(c => true).OrderBy(c => c.Id).ToList();
+            else
+                objAreas = db.Areas.Where(c => true && (c.Nombre.Contains(consulta) || c.Estado.Contains(consulta))).OrderBy(c => c.Id).ToList();
+
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objAreas.ToPagedList(pageNumber, pageSize));
+        }
+
 
         // GET: Areas/Details/5
         public ActionResult Details(int? id)

@@ -60,7 +60,7 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody id="PacientesBuscados">
+        <tbody id="EncuestasBuscadas">
             @foreach (var item in Model)
             {
                 int id = Convert.ToInt32(HttpContext.Current.Session["Usuario_Id"]);
@@ -144,77 +144,6 @@
         </div><!-- // .c-modal__content -->
     </div><!-- // .c-modal__dialog -->
 </div>
-@section scripts
-{
-    <script type="text/javascript">
-
-     function Enviar(a) {
-        $.ajax({
-            url: "@Url.Action("GenerarEncuesta", "Encuestas")",
-            type: 'Get',
-            dataType:'html',
-            data: { id:a},
-            })
-                .done(function(respuesta){
-            $("#general").html(respuesta);
-            })
-            .fail(function(){
-            console.log("error");
-            })
-
-    }
-
-
-    function verificarEncuesta(b) {
-
-        if (b > 0) {
-            var c = b + '';
-            document.getElementById(c).disabled = true;
-        }
-
-
-
-
-    }
-
-    function buscarPaciente(consulta){
-        $.ajax({
-            url: "@Url.Action("BuscarEncuestas", "Encuestas")",
-            type: 'POST',
-            dataType:'html',
-            data:{consulta:consulta},
-            })
-                .done(function(respuesta){
-            $("#PacientesBuscados").html(respuesta);
-            })
-            .fail(function(){
-            console.log("error");
-            })
-     }
-    $(document).on('keyup', "#txtBuscar", function () {
-                //cargaTabla(permiteOrdenar, $("#txtBuscar").val());
-        var valor = $("#txtBuscar").val();
-         if (valor != "") {
-             buscarPaciente(valor);
-
-          }
-          else {
-               buscarPaciente();
-
-        }
-    });
-
-    </script>
-    <script src="~/Content/js/custom.js"></script>
-
-    <script>
-        var elemento = document.getElementsByClassName("c-sidebar__link");
-        elemento[0].classList.remove("is-active");
-        elemento[3].className += " is-active";
-
-    </script>
-}
-<script src="~/Content/js/custom.js"></script>
 
 <div class="c-modal c-modal--large modal fade ocultarDespues2" id="modal32" tabindex="-1" role="dialog" aria-labelledby="modal32" data-backdrop="static">
     <div class="c-modal__dialog modal-dialog" role="document">
@@ -226,7 +155,7 @@
                 </span>
             </div>
             <div class="c-modal__body">
-                <form class="c-card__body formAjax2" method="post" action="~/Encuestados/Add">
+                <form class="c-card__body formAjax2" method="post" action="~/Users/Add">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="c-field u-mb-small">
@@ -266,7 +195,7 @@
                         </div>
                         <div class="c-field u-mb-small col-4">
                             <label class="c-field__label" for="TipoUsuario">Tipo de Usuario</label>
-                            <select name="TipoUsuario" class="c-input" id="TipoUsuario">
+                            <select name="TipoUsuario" class="c-input" id="TipoUsu">
                                 <!-- Opciones de la lista -->
                                 <option value="Coordinador">Coordinador</option>
                                 <option value="Encuestado" selected>Encuestado</option>
@@ -307,7 +236,7 @@
                             <label class="c-field__label" for="input2">Repetir Contraseña</label>
                             <input class="c-input" type="password" id="re-ContraseñaUsu" required="required" EqualTo="#ContraseñaUsu" placeholder="*****">
                         </div>
-                        <input type="hidden" name="IdUsuario" id="IdUsuario2" />
+                        <input type="hidden" name="Id" id="IdUsu" />
                     </div>
                     <div class="u-text-right">
                         <button class="c-btn c-btn--info c-btn btnAjax2" type="submit">
@@ -316,8 +245,91 @@
                         </button>
                     </div>
                 </form>
-
             </div>
         </div><!-- // .c-modal__content -->
     </div><!-- // .c-modal__dialog -->
 </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+     function Enviar(a) {
+        $.ajax({
+            url: "@Url.Action("GenerarEncuesta", "Encuestas")",
+            type: 'Get',
+            dataType:'html',
+            data: { id:a},
+            })
+                .done(function(respuesta){
+            $("#general").html(respuesta);
+            })
+            .fail(function(){
+            console.log("error");
+            })
+
+    }
+
+
+    function verificarEncuesta(b) {
+
+        if (b > 0) {
+            var c = b + '';
+            document.getElementById(c).disabled = true;
+        }
+
+
+
+
+    }
+
+    function buscarEncuesta(consulta){
+        $.ajax({
+            url: "@Url.Action("BuscarEncuestas", "Encuestas")",
+            type: 'POST',
+            dataType:'html',
+            data:{consulta:consulta},
+            })
+                .done(function(respuesta){
+            $("#EncuestasBuscadas").html(respuesta);
+            })
+            .fail(function(){
+            console.log("error");
+            })
+     }
+    $(document).on('keyup', "#txtBuscar", function () {
+                //cargaTabla(permiteOrdenar, $("#txtBuscar").val());
+        var valor = $("#txtBuscar").val();
+         if (valor != "") {
+             buscarEncuesta(valor);
+
+          }
+          else {
+             buscarEncuesta();
+
+        }
+    });
+
+    </script>
+    
+
+    <script>
+        var elemento = document.getElementsByClassName("c-sidebar__link");
+        elemento[0].classList.remove("is-active");
+        elemento[3].className += " is-active";
+
+    </script>
+    @if (HttpContext.Current.Session["TipoUsuario"].Equals("Encuestado"))
+    {
+        <script type="text/javascript">
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[1].className += " is-active";
+        </script>
+
+    }
+
+
+}
+
+

@@ -66,7 +66,7 @@
                         </div>
                         <div class="c-field u-mb-small col-4">
                             <label class="c-field__label" for="TipoUsuario">Tipo de Usuario</label>
-                            <select name="TipoUsuario" class="c-input" id="TipoUsuario">
+                            <select name="TipoUsuario" class="c-input" id="TipoUsu">
                                 <!-- Opciones de la lista -->
                                 <option value="Coordinador">Coordinador</option>
                                 <option value="Encuestado" selected>Encuestado</option>
@@ -107,7 +107,7 @@
                             <label class="c-field__label" for="input2">Repetir Contraseña</label>
                             <input class="c-input" type="password" id="re-ContraseñaUsu" required="required" EqualTo="#ContraseñaUsu" placeholder="*****">
                         </div>
-                        <input type="hidden" name="IdUsuario" id="IdUsuario2" />
+                        <input type="hidden" name="Id" id="IdUsu" />
                     </div>
                     <div class="u-text-right">
                         <button class="c-btn c-btn--info c-btn btnAjax2" type="submit">
@@ -175,7 +175,7 @@
                         </div>
                         <div class="c-field u-mb-small col-4">
                             <label class="c-field__label" for="TipoUsuario">Tipo de Usuario</label>
-                            <select name="TipoUsuario" class="c-input" id="TipoUsuarios">
+                            <select name="TipoUsuario" class="c-input" id="TipoUser">
                                 <!-- Opciones de la lista -->
                                 <option value="Coordinador">Coordinador</option>
                                 <option value="Encuestado" selected>Encuestado</option>
@@ -234,6 +234,38 @@
 {
     <script>
 
+        function buscarUsers(consulta)
+        {
+        $.ajax({
+            url: "@Url.Action("BuscarUsers", "Users")",
+            type: 'POST',
+            dataType:'html',
+            data:{consulta:consulta},
+        })
+        .done(function(respuesta){
+        $("#UsuariosBuscados").html(respuesta);
+        })
+        .fail(function(){
+        console.log("error");
+        })
+        }
+
+        $(document).on('keyup', "#txtBuscar", function () {
+            //cargaTabla(permiteOrdenar, $("#txtBuscar").val());
+            var valor = $("#txtBuscar").val();
+                if (valor != "") {
+                    buscarUsers(valor);
+                }
+                else {
+                    buscarUsers();
+                }
+         });
+
+
+
+
+
+
         $(function () {
             $('#FechaNacimiento').datepicker({
                 format: 'DD/MM/YYYY HH:mm A'
@@ -274,7 +306,7 @@
             elemento[6].className += " is-active";
         }
     </script>
-    <script src="~/Content/js/custom.js"></script>
+    
 }
 
 

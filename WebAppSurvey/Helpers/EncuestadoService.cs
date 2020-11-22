@@ -24,6 +24,7 @@ namespace WebAppSurvey.Helpers
                 UpdateEncuestado.Contraseña = strPass;
                 UpdateEncuestado.Correo = usuario.Correo;
                 UpdateEncuestado.TipoUsuario = usuario.TipoUsuario;
+                UpdateEncuestado.Token = "";
                 db.Entry(UpdateEncuestado).State = EntityState.Modified;
                 db.SaveChanges();
 

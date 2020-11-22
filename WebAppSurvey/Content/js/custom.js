@@ -331,8 +331,8 @@ function funCoordinador(id, tipo, evt) {
                     $("#Edad").val(response.Result.Edad);
                     $("#Sexo").val(response.Result.Sexo);
                     $("#Telefon").val(response.Result.Telefono);
-                    $("#CorreoUsu").val(response.Result2.Correo);
-                    $("#NombreUsu").val(response.Result2.NombreUsuario);
+                    $("#CorreoUser").val(response.Result2.Correo);
+                    $("#NombreUser").val(response.Result2.NombreUsuario);
                     $("#TipoUsuarios").val(response.Result2.TipoUsuario);
                     $("#Id").val(response.Result2.Id);
                     removeInfoForm(formAjaxAdd);
@@ -487,7 +487,7 @@ function funUsuario2(id, tipo, evt) {
         });
     } else {
         $("#modal32").modal("show");
-        document.getElementById("TipoUsuario").disabled = true;
+        //document.getElementById("TipoUsu").disabled = true;
         $.ajax({
             type: "POST",
             url: urlGeneral + "Users/Get",
@@ -500,15 +500,14 @@ function funUsuario2(id, tipo, evt) {
                     $("#NombresUsu").val(response.Result.Nombres);
                     $("#ApellidoPaterno").val(response.Result.ApellidoPaterno);
                     $("#ApellidoMaterno").val(response.Result.ApellidoMaterno);
-                    $("#ProfesionUsu").val(response.Result.Profesion);
                     $("#DireccionUsu").val(response.Result.Direccion);
                     $("#EdadUsu").val(response.Result.Edad);
                     $("#SexoUsu").val(response.Result.Sexo);
                     $("#Telefono").val(response.Result.Telefono);
                     $("#CorreoUsu").val(response.Result2.Correo);
-                    $("#IdUsuarios").val(response.Result2.IdUsuario);
+                    $("#IdUsu").val(response.Result2.Id);
                     $("#NombreUsuario").val(response.Result2.NombreUsuario);
-                    $("#TipoUsuario").val(response.Result2.TipoUsuario);
+                    $("#TipoUsu").val(response.Result2.TipoUsuario);
                     //removeInfoForm(formAjaxAdd);
 
                 } else {
@@ -575,7 +574,7 @@ function funUsuario(id, tipo, evt) {
         });
     } else {
         $("#modal8").modal("show");
-        document.getElementById("TipoUsuarios").disabled = true;
+        //document.getElementById("TipoUsuarios").disabled = true;
         $.ajax({
             type: "POST",
             url: urlGeneral + "Users/Get",
@@ -595,7 +594,7 @@ function funUsuario(id, tipo, evt) {
                     $("#Correo").val(response.Result2.Correo);
                     $("#Id").val(response.Result2.Id);
                     $("#NombreUsu").val(response.Result2.NombreUsuario);
-                    $("#TipoUsuarios").val(response.Result2.TipoUsuario);
+                    $("#TipoUser").val(response.Result2.TipoUsuario);
                     removeInfoForm(formAjaxAdd);
 
                 } else {

@@ -1,18 +1,15 @@
-﻿@model PagedList.IPagedList<Model.Encuestas>
+﻿@model PagedList.IPagedList<Model.Areas>
 @using PagedList.Mvc
 @using WebAppSurvey.Helpers;
-@{ string strOrden = ""; string strImgOrder = "";}
 
 @if (Model.Count() > 0)
 {
     foreach (var item in Model)
     {
-        int id = Convert.ToInt32(HttpContext.Current.Session["Usuario_Id"]);
-        VerificarEncuesta verificar = new VerificarEncuesta();
-        int resultado = verificar.IDEncuesta(id, item.Id);
-        <tr class="c-table__row" onmousemove="verificarEncuesta(@resultado)">
+
+        <tr class="c-table__row">
             <td class="c-table__cell">
-                @item.Titulo
+                @item.Nombre
             </td>
             <td class="c-table__cell">
                 @item.Estado
@@ -25,8 +22,6 @@
                         @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--danger" })
                         @Html.ActionLink(" Preguntas", "Preguntas", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--warninng" })
                     }
-                    <input type="submit" value="Generar" class="fa fa-trash-o u-mr-xsmall c-btn c-btn--warninng" id="@item.Id" onclick="Enviar(@item.Id)" />
-                    @Html.ActionLink(" Resultados", "ResultadosFinales", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--success" })
                 </div>
             </td>
         </tr>
@@ -44,10 +39,11 @@ else
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 </div>
 <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-    @Html.PagedListPager(Model, page => Url.Action("BuscarEncuestas", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
+    @Html.PagedListPager(Model, page => Url.Action("BuscarAreas", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
 </div>
 <script>
-         function Enviar(a) {
+
+    function Enviar(a) {
         $.ajax({
             url: "@Url.Action("GenerarEncuesta", "Encuestas")",
             type: 'Get',
@@ -63,38 +59,18 @@ else
 
     }
 
-
     function verificarEncuesta(b) {
 
         if (b > 0) {
             var c = b + '';
             document.getElementById(c).disabled = true;
         }
-    }
 
-    @*function buscarPaciente(consulta){
-        $.ajax({
-            url: "@Url.Action("BuscarPacientes", "Pacientes")",
-            type: 'POST',
-        dataType:'html',
-        data:{consulta:consulta},
-            })
-    .done(function(respuesta){
-        $("#PacientesBuscados").html(respuesta);
-    })
-    .fail(function(){
-        console.log("error");
-    })
 
-    }*@
 
 
     var permiteOrdenar = '';
     $(document).ready(function () {
-
-
-
-
 
         $(".permiteOrdenar").on("click", function () {
             permiteOrdenar = $(this).data("order");
@@ -103,20 +79,7 @@ else
         $("#btnBuscar").click(function () {
             cargaTabla(permiteOrdenar, $("#txtBuscar").val());
         });
-        //$(document).on('keyup', "#txtBuscar", function () {
-        //    //cargaTabla(permiteOrdenar, $("#txtBuscar").val());
-        //    var valor =$(this).val();
-        //    if(valor!=""){
-        //        buscarPaciente(valor);
 
-        //    }
-        //    else{
-        //        buscarPaciente();
-
-        //    }
-
-
-        //});
         $("#datatable_paginate").on("click", 'a', function (e) {
             e.preventDefault();
             $("#msgCargando").show();
@@ -135,3 +98,5 @@ else
 
 
 </script>
+
+
