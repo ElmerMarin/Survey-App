@@ -51,3 +51,13 @@
         </div>
     </div>
 }
+
+@if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
+{
+    <script type="text/javascript">
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[3].className += " is-active";
+    </script>
+
+}

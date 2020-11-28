@@ -11,6 +11,7 @@ using PagedList;
 
 namespace WebAppSurvey.Controllers
 {
+    [Authorize]
     public class DetalleEncuestasController : Controller
     {
         private SystemEncuestas db = new SystemEncuestas();

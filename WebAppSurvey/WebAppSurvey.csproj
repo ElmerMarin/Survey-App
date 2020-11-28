@@ -159,16 +159,19 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PreguntasController.cs" />
     <Compile Include="Controllers\RespuestasController.cs" />
+    <Compile Include="Controllers\ResultadosController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\VerificarSession.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ContadorDeRecursos.cs" />
     <Compile Include="Helpers\CoordinadorService.cs" />
     <Compile Include="Helpers\CryproHelper.cs" />
     <Compile Include="Helpers\EncuestadoService.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Helpers\ToolsHelper.cs" />
+    <Compile Include="Helpers\VerificarConfiguracion.cs" />
     <Compile Include="Helpers\VerificarEncuesta.cs" />
     <Compile Include="Models\Coordinador.cs" />
     <Compile Include="Models\Encuesta.cs" />
@@ -465,10 +468,18 @@
     <Content Include="Views\Coordinador\BuscarCoordinadores.cshtml" />
     <Content Include="Views\Users\BuscarUsers.cshtml" />
     <Content Include="Views\DetalleEncuestas\BuscarConfiguracion.cshtml" />
+    <Content Include="Views\Acceso\RecuperarCuenta.cshtml" />
+    <Content Include="Views\Areas\Error.cshtml" />
+    <Content Include="Views\Preguntas\Error.cshtml" />
+    <Content Include="Views\Resultados\Create.cshtml" />
+    <Content Include="Views\Resultados\Delete.cshtml" />
+    <Content Include="Views\Resultados\Details.cshtml" />
+    <Content Include="Views\Resultados\Edit.cshtml" />
+    <Content Include="Views\Resultados\Index.cshtml" />
+    <Content Include="Views\Resultados\BuscarResultados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Encuesta\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

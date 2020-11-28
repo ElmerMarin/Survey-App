@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    int ?Id = ViewBag.Identificador;
+    int? Id = ViewBag.Identificador;
 
 }
 
@@ -95,7 +95,7 @@
                                 <option value="Inactivo" selected>Inactivo</option>
                             </select>
                         </div>
-                        <input type="hidden" name="IdEncuesta" id="IdEncuesta2" value="@Id"/>
+                        <input type="hidden" name="IdEncuesta" id="IdEncuesta2" value="@Id" />
                     </div>
 
                     <div class="u-text-right">
@@ -110,3 +110,13 @@
         </div><!-- // .c-modal__content -->
     </div><!-- // .c-modal__dialog -->
 </div>
+
+@if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
+{
+    <script type="text/javascript">
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[3].className += " is-active";
+    </script>
+
+}

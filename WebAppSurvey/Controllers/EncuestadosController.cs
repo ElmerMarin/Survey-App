@@ -10,6 +10,7 @@ using WebAppSurvey.Models;
 
 namespace WebAppSurvey.Controllers
 {
+    [Authorize]
     public class EncuestadosController : Controller
     {
         // GET: Encuestado
@@ -132,9 +133,18 @@ namespace WebAppSurvey.Controllers
             {
                 var objProd = db.Encuestados.Where(c => c.IdEncuestado == Id).FirstOrDefault();
                 var objUsu2 = db.Usuarios.Where(c => c.Id == objProd.IdUsuario).FirstOrDefault();
-                db.Encuestados.Remove(objProd);
-                db.Usuarios.Remove(objUsu2);
-                db.SaveChanges();
+                try
+                {
+                    db.Encuestados.Remove(objProd);
+                    db.Usuarios.Remove(objUsu2);
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+
+                    strMensaje = "Se debe eliminar primero los detalles del resultado de la encuesta";
+                    return Json(new Response { IsSuccess = okResult, Message = strMensaje, Id = Id }, JsonRequestBehavior.AllowGet);
+                }
                 strMensaje = "Se elimino el Coordinador Correctamente";
                 okResult = true;
 

@@ -8,159 +8,155 @@ using System.Web;
 using System.Web.Mvc;
 using Model;
 using PagedList;
-using WebAppSurvey.Models;
 
 namespace WebAppSurvey.Controllers
 {
     [Authorize]
-    public class AreasController : Controller
+    public class ResultadosController : Controller
     {
         private SystemEncuestas db = new SystemEncuestas();
 
-        // GET: Areas
+        // GET: Resultados
         public ActionResult Index(string valSearch, int? page)
         {
-            
+
             ViewBag.Buscar = valSearch;
-            List<Areas> objAreas = new List<Areas>();
+            List<Resultados> objResultados = new List<Resultados>();
             if (string.IsNullOrEmpty(valSearch))
-                objAreas = db.Areas.Where(c => true).OrderBy(c => c.Id).ToList();
+                objResultados = db.Resultados.Where(c => true).OrderBy(c => c.Id).ToList();
             else
-                objAreas = db.Areas.Where(c => true && (c.Nombre.Contains(valSearch) || c.Estado.Contains(valSearch))).OrderBy(c => c.Id).ToList();
+                objResultados = db.Resultados.Where(c => true && (c.Usuarios.NombreUsuario.Contains(valSearch) || c.Usuarios.TipoUsuario.Contains(valSearch))).OrderBy(c => c.Id).ToList();
 
             int pageSize = 5;
             int pageNumber = page ?? 1;
 
 
-            return View(objAreas.ToPagedList(pageNumber, pageSize));
+            return View(objResultados.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]
-        public ActionResult BuscarAreas(string consulta, int? page = null)
+        public ActionResult BuscarResultados(string consulta, int? page = null)
         {
             ViewBag.Buscar = consulta;
-            List<Areas> objAreas = new List<Areas>();
+            List<Resultados> objResultados = new List<Resultados>();
             if (string.IsNullOrEmpty(consulta))
-                objAreas = db.Areas.Where(c => true).OrderBy(c => c.Id).ToList();
+                objResultados = db.Resultados.Where(c => true).OrderBy(c => c.Id).ToList();
             else
-                objAreas = db.Areas.Where(c => true && (c.Nombre.Contains(consulta) || c.Estado.Contains(consulta))).OrderBy(c => c.Id).ToList();
+                objResultados = db.Resultados.Where(c => true && (c.Usuarios.NombreUsuario.Contains(consulta) || c.Usuarios.TipoUsuario.Contains(consulta))).OrderBy(c => c.Id).ToList();
 
 
             int pageSize = 5;
             int pageNumber = page ?? 1;
 
 
-            return PartialView(objAreas.ToPagedList(pageNumber, pageSize));
+            return PartialView(objResultados.ToPagedList(pageNumber, pageSize));
         }
 
-
-        // GET: Areas/Details/5
+        // GET: Resultados/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Areas areas = db.Areas.Find(id);
-            if (areas == null)
+            Resultados resultados = db.Resultados.Find(id);
+            if (resultados == null)
             {
                 return HttpNotFound();
             }
-            return View(areas);
+            return View(resultados);
         }
 
-        // GET: Areas/Create
+        // GET: Resultados/Create
         public ActionResult Create()
         {
+            ViewBag.IdUsuario = new SelectList(db.Usuarios, "Id", "TipoUsuario");
             return View();
         }
 
-        // POST: Areas/Create
+        // POST: Resultados/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Fecha,Estado")] Areas areas)
+        public ActionResult Create([Bind(Include = "Id,IdUsuario,Hora_Inicio,Hora_Final,Fecha")] Resultados resultados)
         {
             if (ModelState.IsValid)
             {
-                db.Areas.Add(areas);
+                db.Resultados.Add(resultados);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(areas);
+            ViewBag.IdUsuario = new SelectList(db.Usuarios, "Id", "TipoUsuario", resultados.IdUsuario);
+            return View(resultados);
         }
 
-        // GET: Areas/Edit/5
+        // GET: Resultados/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Areas areas = db.Areas.Find(id);
-            if (areas == null)
+            Resultados resultados = db.Resultados.Find(id);
+            if (resultados == null)
             {
                 return HttpNotFound();
             }
-            return View(areas);
+            ViewBag.IdUsuario = new SelectList(db.Usuarios, "Id", "TipoUsuario", resultados.IdUsuario);
+            return View(resultados);
         }
 
-        // POST: Areas/Edit/5
+        // POST: Resultados/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nombre,Fecha,Estado")] Areas areas)
+        public ActionResult Edit([Bind(Include = "Id,IdUsuario,Hora_Inicio,Hora_Final,Fecha")] Resultados resultados)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(areas).State = EntityState.Modified;
+                db.Entry(resultados).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(areas);
+            ViewBag.IdUsuario = new SelectList(db.Usuarios, "Id", "TipoUsuario", resultados.IdUsuario);
+            return View(resultados);
         }
 
-        // GET: Areas/Delete/5
+        // GET: Resultados/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Areas areas = db.Areas.Find(id);
-            if (areas == null)
+            Resultados resultados = db.Resultados.Find(id);
+            if (resultados == null)
             {
                 return HttpNotFound();
             }
-            return View(areas);
+            return View(resultados);
         }
 
-        // POST: Areas/Delete/5
+        // POST: Resultados/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Areas areas = db.Areas.Find(id);
-            try
+            var DetalleResultados = db.DetalleResultado.Where(c=>c.IdResultado==id).ToList();
+            for (int i = 0; i < DetalleResultados.Count; i++)
             {
-                db.Areas.Remove(areas);
+                db.DetalleResultado.Remove(DetalleResultados[i]);
                 db.SaveChanges();
             }
-            catch (Exception)
-            {
+            var resultado= db.Resultados.Where(c => c.Id == id).FirstOrDefault();
+            db.Resultados.Remove(resultado);
+            db.SaveChanges();
 
-                return RedirectToAction("Error");
-            }
+
             return RedirectToAction("Index");
-        }
-
-        public ActionResult Error() {
-
-            return View();
-             
         }
 
         protected override void Dispose(bool disposing)

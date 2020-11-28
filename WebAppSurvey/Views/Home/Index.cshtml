@@ -1,11 +1,29 @@
 ﻿
-
+@using WebAppSurvey.Helpers;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     string Nombre = ViewBag.Usuario;
 }
-
+@{ var areas = ContadorDeRecursos.AreasTotales();
+    var categorias = ContadorDeRecursos.CategoriasTotales();
+    var encuestas = ContadorDeRecursos.EncuestasTotales();
+    var encuestados = ContadorDeRecursos.EncuestadosTotales();
+    var enero = ContadorDeRecursos.EncuestasTotalesMes(1);
+    var febrero = ContadorDeRecursos.EncuestasTotalesMes(2);
+    var marzo = ContadorDeRecursos.EncuestasTotalesMes(3);
+    var abril = ContadorDeRecursos.EncuestasTotalesMes(4);
+    var mayo = ContadorDeRecursos.EncuestasTotalesMes(5);
+    var junio = ContadorDeRecursos.EncuestasTotalesMes(6);
+    var julio = ContadorDeRecursos.EncuestasTotalesMes(7);
+    var agosto = ContadorDeRecursos.EncuestasTotalesMes(8);
+    var setiembre = ContadorDeRecursos.EncuestasTotalesMes(9);
+    var octubre = ContadorDeRecursos.EncuestasTotalesMes(10);
+    var noviembre = ContadorDeRecursos.EncuestasTotalesMes(11);
+    var diciembre = ContadorDeRecursos.EncuestasTotalesMes(12);
+    var hombres = ContadorDeRecursos.EncuestadosTotalesSexo("Masculino");
+    var mujeres = ContadorDeRecursos.EncuestadosTotalesSexo("Femenino");
+}
 
 @if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
 {
@@ -17,7 +35,7 @@
                 </div>
                 <div class="c-state-card__content">
                     <h5 class="c-state-card__number">
-                        5
+                        @encuestas
                         <span class="c-state-card__status u-bg-green">
                             <i class="fa fa-caret-up"></i>
                         </span>
@@ -33,7 +51,7 @@
                 </div>
                 <div class="c-state-card__content">
                     <h5 class="c-state-card__number">
-                        3
+                        @categorias
                         <span class="c-state-card__status u-bg-green">
                             <i class="fa fa-caret-up"></i>
                         </span>
@@ -49,7 +67,7 @@
                 </div>
                 <div class="c-state-card__content">
                     <h5 class="c-state-card__number">
-                        6
+                        @areas
                         <span class="c-state-card__status u-bg-red">
                             <i class="fa fa-caret-down"></i>
                         </span>
@@ -65,7 +83,7 @@
                 </div>
                 <div class="c-state-card__content">
                     <h5 class="c-state-card__number">
-                        2
+                        @encuestados
                         <span class="c-state-card__status u-bg-green">
                             <i class="fa fa-caret-up"></i>
                         </span>
@@ -75,6 +93,26 @@
             </div>
         </div><!-- // .col-md-3 -->
     </div><!-- // .row -->
+    <div class="row">
+    <div class="col-xl-8">
+        <div class="c-card u-p-medium u-mb-medium">
+            <div class="u-flex u-justify-between u-align-items-center">
+                <h3 class="c-card__title">Encuestas</h3>
+                <span class="u-text-small u-text-uppercase u-text-mute">@DateTime.Now.Year</span>
+            </div>
+            <canvas id="Grafica" width="200" height="100"></canvas>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="c-card u-p-medium u-mb-medium">
+            <div class="u-flex u-justify-between u-align-items-center">
+                <h3 class="c-card__title">Encuestados</h3>
+                <span class="u-text-small u-text-uppercase u-text-mute">@DateTime.Now.Year</span>
+            </div>
+            <canvas id="Grafica2" width="100" height="100"></canvas>
+        </div>
+    </div>
+    </div>
 }
 @if (HttpContext.Current.Session["TipoUsuario"].Equals("Encuestado"))
 {
@@ -232,4 +270,42 @@
 @section scripts{
     <script src='~/Content/js/utils.js'></script>
     <script src='~/Content/js/Chart.min.js'></script>
+
+    <script>
+
+        let canvas = document.getElementById("Grafica").getContext("2d");
+
+        var grafica = new Chart(canvas, {
+            type: "line",
+            data: {
+                labels: ["Enero", "Febrero", "Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"],
+                datasets: [
+                    {
+                        label: "Encuestas",
+                        backgroundColor: window.chartColors.white,
+                        borderColor: window.chartColors.red,
+                        data:[@enero,@febrero,@marzo,@abril,@mayo,@junio,@julio,@agosto,@setiembre,@octubre,@noviembre,@diciembre],
+                    }
+                ]
+            }
+        })
+
+
+        let canvas2 = document.getElementById("Grafica2").getContext("2d");
+
+        var grafica2 = new Chart(canvas2, {
+            type: "pie",
+            data: {
+                labels: ["Hombres", "Mujeres"],
+                datasets: [
+                    {
+                        label: "Encuestados",
+                        backgroundColor: ['rgb(255, 198, 142)', 'rgb(255, 255, 0)',], 
+                        data:[@hombres,@mujeres],
+                    }
+                ]
+            }
+        })
+    </script>
+
 }

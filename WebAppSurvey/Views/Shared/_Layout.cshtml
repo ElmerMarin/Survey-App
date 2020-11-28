@@ -100,6 +100,11 @@ else
                                 <i class="fa fa-cog u-mr-xsmall"></i>Configuracion
                             </a>
                         </li>
+                        <li class="c-sidebar__item">
+                            <a class="c-sidebar__link" href="~/Resultados/Index">
+                                <i class="fa fa-cog u-mr-xsmall"></i>Resultados
+                            </a>
+                        </li>
                     </ul>
                 }
                 @if (HttpContext.Current.Session["TipoUsuario"] == null)
@@ -168,7 +173,7 @@ else
                     <div>
                         @if (HttpContext.Current.Session["Nombres"] == null || HttpContext.Current.Session["ApellidoPaterno"] == null)
                         {
-                            Response.Redirect("~/Account/Index");
+                            Response.Redirect("~/Acceso/Login");
                         }
                         else
                         {

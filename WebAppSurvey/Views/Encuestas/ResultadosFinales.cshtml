@@ -35,14 +35,14 @@
 <script src='~/Content/js/utils.js'></script>
 <script src='~/Content/js/Chart.min.js'></script>
 <script>
-    function graficas(contadorPregunta,valores,descripcion,titulos) {
+    function graficas(contadorPregunta, valores, descripcion, titulos) {
         canvas = document.getElementById(contadorPregunta).getContext("2d");
         //if (window.grafica) {
         //    window.grafica.clear();
         //    window.grafica.destroy();
         //}
 
-        
+
         var Respuestas = JSON.parse(descripcion.replace(/&quot;/g, '"'));
         var titulosdePreguntas = JSON.parse(titulos.replace(/&quot;/g, '"'));
 
@@ -52,7 +52,7 @@
         //}
 
         var valoresResultado = JSON.parse(valores);
-        
+
 
         window.grafica = new Chart(canvas, {
             type: 'horizontalBar',
@@ -105,8 +105,8 @@
         TotalRespuestas++;
         string descripcion = respuestas[j].Descripcion;
         var RespuestasDeUsuarios = db.DetalleResultado.Where(p => p.IdEncuesta == IdEncuesta && p.Valor == descripcion).Count();
-        <p style="font-family:Arial;font-size:14px;">@respuestas[j].Descripcion  @RespuestasDeUsuarios</p>
-        descripcionPregunta = descripcionPregunta + respuestas[j].Descripcion+",";
+        @*<p style="font-family:Arial;font-size:14px;">@respuestas[j].Descripcion  @RespuestasDeUsuarios</p>*@
+        descripcionPregunta = descripcionPregunta + respuestas[j].Descripcion + ",";
         descripciones.Add(respuestas[j].Descripcion);
         valores.Add(RespuestasDeUsuarios);
 
@@ -124,9 +124,9 @@
     JavaScriptSerializer dd3 = new JavaScriptSerializer();
     string json3 = dd3.Serialize(titulos);
 
-<script>
+    <script>
         graficas("@contadorPregunta", "@json","@json2","@json3")
-</script>
+    </script>
     <br />
 
 
@@ -241,7 +241,24 @@
 
 @section Scripts {
 
+    @if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
+    {
+        <script type="text/javascript">
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[3].className += " is-active";
+        </script>
 
+    }
+    @if (HttpContext.Current.Session["TipoUsuario"].Equals("Encuestado"))
+    {
+        <script type="text/javascript">
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[1].className += " is-active";
+        </script>
+
+    }
 
 }
 

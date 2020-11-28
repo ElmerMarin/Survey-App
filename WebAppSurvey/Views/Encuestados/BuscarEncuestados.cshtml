@@ -20,10 +20,12 @@
 
             <td class="c-table__cell u-text-right">
                 <div>
-
-                        @Html.ActionLink(" Edit", "Edit", new { id = item.IdEncuestado }, new { @class = "fa fa-pencil-square-o u-mr-xsmall c-btn c-btn--success " })
-                        @Html.ActionLink(" Delete", "Delete", new { id = item.IdEncuestado }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--danger" })
-                    
+                    <a class="c-btn c-btn--success" href="#!" onclick="funEncuestado(@item.IdEncuestado, 'M', event);">
+                        <i class="fa fa-pencil-square-o u-mr-xsmall"></i>Editar
+                    </a>
+                    <a class="c-btn c-btn--danger" href="#!" onclick="funEncuestado(@item.IdEncuestado, 'E', event);">
+                        <i class="fa fa-trash-o u-mr-xsmall"></i>Eliminar
+                    </a>
                 </div>
             </td>
         </tr>

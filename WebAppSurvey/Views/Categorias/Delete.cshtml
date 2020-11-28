@@ -17,7 +17,7 @@
                 </span>
             </div>
             <div class="c-modal__body">
-                <form  method="post" action="~/Encuestas/Create">
+                <form method="post" action="~/Encuestas/Create">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="c-field u-mb-small">
@@ -57,4 +57,14 @@
             </div>
         </div>
     </div>
+}
+
+@if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
+{
+    <script type="text/javascript">
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[2].className += " is-active";
+    </script>
+
 }

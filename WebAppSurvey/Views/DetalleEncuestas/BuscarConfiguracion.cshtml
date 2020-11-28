@@ -7,26 +7,35 @@
     foreach (var item in Model)
     {
 
-        <tr class="c-table__row">
-            <td class="c-table__cell">
-                @item.Id
-            </td>
-            <td class="c-table__cell">
-                @item.Areas.Nombre
-            </td>
-            <td class="c-table__cell">
-                @item.Encuestas.Descripcion
-            </td>
+    <tr class="c-table__row">
+        <td class="c-table__cell">
+            @item.FechaInicio
+        </td>
+        <td class="c-table__cell">
+            @item.Fechafinal
+        </td>
+        <td class="c-table__cell">
+            @item.Estado
+        </td>
+        <td class="c-table__cell">
+            @item.Areas.Nombre
+        </td>
+        <td class="c-table__cell">
+            @item.Categorias.Nombre
+        </td>
+        <td class="c-table__cell">
+            @item.Encuestas.Titulo
+        </td>
 
-            <td class="c-table__cell u-text-right">
-                <div>
+        <td class="c-table__cell u-text-right">
+            <div>
 
-                    @Html.ActionLink(" Edit", "Edit", new { id = item.Id }, new { @class = "fa fa-pencil-square-o u-mr-xsmall c-btn c-btn--success " })
-                    @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--danger" })
+                @Html.ActionLink(" Edit", "Edit", new { id = item.Id }, new { @class = "fa fa-pencil-square-o u-mr-xsmall c-btn c-btn--success " })
+                @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--danger" })
 
-                </div>
-            </td>
-        </tr>
+            </div>
+        </td>
+    </tr>
     }
 }
 else

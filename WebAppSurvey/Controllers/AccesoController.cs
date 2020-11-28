@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using WebAppSurvey.Helpers;
@@ -175,7 +176,7 @@ namespace WebAppSurvey.Controllers
                     {
                         var baseAddress = new Uri(ToolsHelper.UrlOriginal(Request));
                         string Mensaje = "Gracias por inscribirse al sistema de Encuestas, puede entrar con el usuario " +
-                            "y contraseña registrada. <a href='" + baseAddress + "'>INVENTARIOS</a>";
+                            "y contraseña registrada. <a href='" + baseAddress + "'>Survey</a>";
                         ToolsHelper.SendMail(correo, "Gracias por registrarte ", Mensaje);
                         strMensaje = "Te registraste correctamente, ya puedes entrar al sistema.";
                         strMensaje = Url.Content("~/Home/Index");
@@ -191,6 +192,76 @@ namespace WebAppSurvey.Controllers
                 {
                     strMensaje = "Disculpe las molestias, por el momento no podemos conectarnos con el servidor, intentelo nuevamente.";
                 }
+            }
+            return Json(new Response { IsSuccess = true, Message = strMensaje, Id = id }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        public ActionResult RecuperarCuenta()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RecuperarCuenta(string CorreoElectronico)
+        {
+            
+            var objUsu = db.Usuarios.Where(c => c.Correo == CorreoElectronico).FirstOrDefault();
+            int id = 0;
+            string strMensaje = "El correo no se encuentra registrado.";
+            if (objUsu != null)
+            {
+                string strToken = objUsu.Id.ToString() + objUsu.Correo;
+                string strTknAjax = CryproHelper.ComputeHash(strToken, CryproHelper.Supported_HA.SHA512, null);
+                objUsu.Token = Server.UrlEncode(strTknAjax);
+                db.Entry(objUsu).State = EntityState.Modified;
+                db.SaveChanges();
+
+                var baseAddress = ToolsHelper.UrlOriginal(Request) + "/Acceso/ResetPass/?tkn=" + objUsu.Token;
+                string Mensaje = "Para restaurar tu cuenta , entra a la siguiente liga y crea una nueva contraseña. <br/><br/> <a href='" + baseAddress + "'>recuperar cuenta</a>";
+                ToolsHelper.SendMail(CorreoElectronico, "Recuperar ", Mensaje);
+                strMensaje = "Se envío un correo con la información requerida para recuperar su cuenta.";
+            }
+            return Json(new Response { IsSuccess = true, Message = strMensaje, Id = id }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult ResetPass(string tkn)
+        {
+            if (!string.IsNullOrEmpty(tkn))
+            {
+               
+                tkn = Server.UrlEncode(tkn);
+                ViewBag.tkn = tkn;
+                var objUsu = db.Usuarios.Where(c => c.Token == tkn);
+                if (objUsu != null)
+                {
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult ResetPass(string Password, string tkn)
+        {
+
+            var objUsu = db.Usuarios.Where(c => c.Token == tkn).FirstOrDefault();
+            string strMensaje = "";
+            int id = 0;
+            if (objUsu != null)
+            {
+                string strPass = CryproHelper.ComputeHash(Password, CryproHelper.Supported_HA.SHA512, null);
+                objUsu.Contraseña = strPass;
+                objUsu.Token = "";
+                db.Entry(objUsu).State = EntityState.Modified;
+                db.SaveChanges();
+                strMensaje = "Se actualizó la contraseña correctamente ";
+            }
+            else
+            {
+                strMensaje = "El token se encuentra vencido, necesita recuperar nuevamente su cuenta.";
             }
             return Json(new Response { IsSuccess = true, Message = strMensaje, Id = id }, JsonRequestBehavior.AllowGet);
         }

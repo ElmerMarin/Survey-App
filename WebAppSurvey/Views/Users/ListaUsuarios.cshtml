@@ -24,8 +24,8 @@
     <thead class="c-table__head c-table__head--slim">
 
         <tr class="c-table__row">
-            <th class="c-table__cell c-table__cell--head">N°</th>
             <th class="c-table__cell c-table__cell--head">Nombre de Usuario</th>
+            <th class="c-table__cell c-table__cell--head">Correo</th>
             <th class="c-table__cell c-table__cell--head">Tipo de Usuario</th>
             <th class="c-table__cell c-table__cell--head">
                 <span class="u-hidden-visually">Tools</span>
@@ -38,28 +38,27 @@
         {
             foreach (var item in Model)
             {
-                <tr class="c-table__row">
-                    <td class="c-table__cell">
-                        @item.Id
-                    </td>
-                    <td class="c-table__cell">
-                        @item.NombreUsuario
-
-                    </td>
-                    <td class="c-table__cell">
-                        @item.TipoUsuario
-                    </td>
-                    <td class="c-table__cell u-text-right">
-                        <div>
-                            <a class="c-btn c-btn--success" href="#!" onclick="funUsuario(@item.Id, 'M', event);">
-                                <i class="fa fa-pencil-square-o u-mr-xsmall"></i>Editar
-                            </a>
-                            <a class="c-btn c-btn--danger" href="#!" onclick="funUsuario(@item.Id, 'E', event);">
-                                <i class="fa fa-trash-o u-mr-xsmall"></i>Eliminar
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+        <tr class="c-table__row">
+            <td class="c-table__cell">
+                @item.NombreUsuario
+            </td>
+            <td class="c-table__cell">
+                @item.Correo
+            </td>
+            <td class="c-table__cell">
+                @item.TipoUsuario
+            </td>
+            <td class="c-table__cell u-text-right">
+                <div>
+                    <a class="c-btn c-btn--success" href="#!" onclick="funUsuario(@item.Id, 'M', event);">
+                        <i class="fa fa-pencil-square-o u-mr-xsmall"></i>Editar
+                    </a>
+                    <a class="c-btn c-btn--danger" href="#!" onclick="funUsuario(@item.Id, 'E', event);">
+                        <i class="fa fa-trash-o u-mr-xsmall"></i>Eliminar
+                    </a>
+                </div>
+            </td>
+        </tr>
             }
         }
         else

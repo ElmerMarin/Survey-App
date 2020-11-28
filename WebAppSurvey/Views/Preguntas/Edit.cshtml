@@ -14,13 +14,13 @@
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
             <div class="c-modal__header u-bg-primary">
-                <h3 class="c-modal__title">Encuestas</h3>
+                <h3 class="c-modal__title">Preguntas</h3>
                 <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
                     <i class="fa fa-close"></i>
                 </span>
             </div>
             <div class="c-modal__body">
-                <form class="c-card__body formAjax" method="post" action="~/Preguntas/Edit">
+                <form  method="post" action="~/Preguntas/Edit">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="c-field u-mb-small">
@@ -51,7 +51,7 @@
 
                     <div class="u-text-center">
                         @Html.ActionLink("Regresar", "Index", new { d = Model.IdEncuesta }, new { @class = "c-btn c-btn--success" })
-                        <button class="c-btn c-btn--info c-btn btnAjax" type="submit">
+                        <button class="c-btn c-btn--info" type="submit">
                             Guardar
                             <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
                         </button>

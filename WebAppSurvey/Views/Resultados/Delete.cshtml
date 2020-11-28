@@ -1,4 +1,4 @@
-﻿@model Model.Areas
+﻿@model Model.Resultados
 
 @{
     ViewBag.Title = "Delete";
@@ -11,26 +11,26 @@
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
             <div class="c-modal__header u-bg-primary">
-                <h3 class="c-modal__title">Eliminar Area</h3>
+                <h3 class="c-modal__title">Eliminar Resultado</h3>
                 <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
                     <i class="fa fa-close"></i>
                 </span>
             </div>
             <div class="c-modal__body">
-                <form method="post" action="~/Encuestas/Delete">
+                <form class="c-card__body formAjax" method="post" action="~/Encuestas/Create">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="c-field u-mb-small">
-                                @Html.DisplayNameFor(model => model.Nombre):
-                                @Html.DisplayFor(model => model.Nombre)
+                                @Html.DisplayNameFor(model => model.Usuarios.NombreUsuario):
+                                @Html.DisplayFor(model => model.Usuarios.NombreUsuario)
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="c-field u-mb-small">
-                                @Html.DisplayNameFor(model => model.Fecha)
-                                @Html.DisplayFor(model => model.Fecha)
+                                @Html.DisplayNameFor(model => model.Usuarios.TipoUsuario)
+                                @Html.DisplayFor(model => model.Usuarios.TipoUsuario)
                             </div>
                         </div>
                     </div>
@@ -64,8 +64,7 @@
     <script type="text/javascript">
             var elemento = document.getElementsByClassName("c-sidebar__link");
             elemento[0].classList.remove("is-active");
-            elemento[1].className += " is-active";
+            elemento[8].className += " is-active";
     </script>
 
 }
-

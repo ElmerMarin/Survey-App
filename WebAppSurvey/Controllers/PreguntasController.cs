@@ -126,9 +126,24 @@ namespace WebAppSurvey.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Preguntas preguntas = db.Preguntas.Find(id);
-            db.Preguntas.Remove(preguntas);
-            db.SaveChanges();
+            try
+            {
+                db.Preguntas.Remove(preguntas);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Error", "Preguntas", new { d = preguntas.IdEncuesta });
+            }
             return RedirectToAction("Index", "Preguntas", new { d = preguntas.IdEncuesta });
+        }
+
+        public ActionResult Error(int? d)
+        {
+            var preguntas = db.Preguntas.Include(p => p.Encuestas).Where(p => p.IdEncuesta == d);
+            ViewBag.identificador = d;
+            return View(preguntas.ToList());
         }
 
         public ActionResult Respuestas(int? id)

@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Index";
 
+
 }
 <body id="general">
     <table class="c-table c-table--highlight u-mb-small">
@@ -66,14 +67,16 @@
                 int id = Convert.ToInt32(HttpContext.Current.Session["Usuario_Id"]);
                 VerificarEncuesta verificar = new VerificarEncuesta();
                 int resultado = verificar.IDEncuesta(id, item.Id);
+                VerificarConfiguracion verificarFecha = new VerificarConfiguracion();
+                int fechaverificada=verificarFecha.VerificarFecha(item.Id);
                 <tr class="c-table__row" onmousemove="verificarEncuesta(@resultado)">
                     <td class="c-table__cell">
                         @Html.DisplayFor(modelItem => item.Titulo)
                     </td>
-                    <td class="c-table__cell">
+                    <td class="c-table__cell" id="id+@item.Id">
                         @Html.DisplayFor(modelItem => item.Estado)
                     </td>
-                    <td class="c-table__cell u-text-right">
+                    <td class="c-table__cell u-text-right" onmousemove="verificarConfiguracion(@fechaverificada,'id+@item.Id')">
                         <div id="opciones">
                             @if (Session["TipoUsuario"].Equals("Coordinador"))
                             {
@@ -277,11 +280,17 @@
             var c = b + '';
             document.getElementById(c).disabled = true;
         }
-
-
-
-
     }
+
+    function verificarConfiguracion(m,n) {
+
+        if (m>0) {
+            var c = m + '';
+            document.getElementById(c).disabled = true;
+            document.getElementById(n).textContent = "Cerrada";
+        }
+    }
+
 
     function buscarEncuesta(consulta){
         $.ajax({
@@ -298,7 +307,6 @@
             })
      }
     $(document).on('keyup', "#txtBuscar", function () {
-                //cargaTabla(permiteOrdenar, $("#txtBuscar").val());
         var valor = $("#txtBuscar").val();
          if (valor != "") {
              buscarEncuesta(valor);
@@ -311,14 +319,17 @@
     });
 
     </script>
-    
 
-    <script>
-        var elemento = document.getElementsByClassName("c-sidebar__link");
-        elemento[0].classList.remove("is-active");
-        elemento[3].className += " is-active";
 
-    </script>
+    @if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
+    {
+        <script type="text/javascript">
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[3].className += " is-active";
+        </script>
+
+    }
     @if (HttpContext.Current.Session["TipoUsuario"].Equals("Encuestado"))
     {
         <script type="text/javascript">

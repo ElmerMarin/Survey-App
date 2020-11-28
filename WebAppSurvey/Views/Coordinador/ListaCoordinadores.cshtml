@@ -24,10 +24,10 @@
     <thead class="c-table__head c-table__head--slim">
 
         <tr class="c-table__row">
-            <th class="c-table__cell c-table__cell--head">N°</th>
             <th class="c-table__cell c-table__cell--head">Nombres</th>
             <th class="c-table__cell c-table__cell--head">Apellido Paterno</th>
             <th class="c-table__cell c-table__cell--head">Apellido Materno</th>
+            <th class="c-table__cell c-table__cell--head">Telefono</th>
             <th class="c-table__cell c-table__cell--head">
                 <span class="u-hidden-visually">Tools</span>
             </th>
@@ -39,28 +39,31 @@
         {
             foreach (var item in Model)
             {
-                <tr class="c-table__row">
-                    <td class="c-table__cell">
-                        @item.Nombres
-                    </td>
-                    <td class="c-table__cell">
-                        @item.ApellidoPaterno
+        <tr class="c-table__row">
+            <td class="c-table__cell">
+                @item.Nombres
+            </td>
+            <td class="c-table__cell">
+                @item.ApellidoPaterno
 
-                    </td>
-                    <td class="c-table__cell">
-                        @item.ApellidoMaterno
-                    </td>
-                    <td class="c-table__cell u-text-right">
-                        <div>
-                            <a class="c-btn c-btn--success" href="#!" onclick="funCoordinador(@item.IdCoordinador, 'M', event);">
-                                <i class="fa fa-pencil-square-o u-mr-xsmall"></i>Editar
-                            </a>
-                            <a class="c-btn c-btn--danger" href="#!" onclick="funCoordinador(@item.IdCoordinador, 'E', event);">
-                                <i class="fa fa-trash-o u-mr-xsmall"></i>Eliminar
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+            </td>
+            <td class="c-table__cell">
+                @item.ApellidoMaterno
+            </td>
+            <td class="c-table__cell">
+                @item.Telefono
+            </td>
+            <td class="c-table__cell u-text-right">
+                <div>
+                    <a class="c-btn c-btn--success" href="#!" onclick="funCoordinador(@item.IdCoordinador, 'M', event);">
+                        <i class="fa fa-pencil-square-o u-mr-xsmall"></i>Editar
+                    </a>
+                    <a class="c-btn c-btn--danger" href="#!" onclick="funCoordinador(@item.IdCoordinador, 'E', event);">
+                        <i class="fa fa-trash-o u-mr-xsmall"></i>Eliminar
+                    </a>
+                </div>
+            </td>
+        </tr>
             }
         }
         else

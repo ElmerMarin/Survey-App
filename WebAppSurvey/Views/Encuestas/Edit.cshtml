@@ -19,7 +19,7 @@
                 </span>
             </div>
             <div class="c-modal__body">
-                <form  method="post" action="~/Encuestas/Edit">
+                <form method="post" action="~/Encuestas/Edit">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="c-field u-mb-small">
@@ -41,13 +41,13 @@
                         </div>
                     </div>
                     <div class="row">
-                         <div class="c-field u-mb-small col-12">
-                               <label class="c-field__label" for="Estado">Estado</label>
-                               <select name="Estado" class="c-input" id="Estado">
-                                    <option value="Activo">Activo</option>
-                                    <option value="Inactivo" selected>Inactivo</option>
-                               </select>
-                         </div>
+                        <div class="c-field u-mb-small col-12">
+                            <label class="c-field__label" for="Estado">Estado</label>
+                            <select name="Estado" class="c-input" id="Estado">
+                                <option value="Abierta">Abierta</option>
+                                <option value="Cerrada" selected>Cerrada</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="u-text-left">
@@ -81,6 +81,16 @@
 
 
     </script>
+
+    @if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
+    {
+        <script type="text/javascript">
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[3].className += " is-active";
+        </script>
+
+    }
 
 
 }

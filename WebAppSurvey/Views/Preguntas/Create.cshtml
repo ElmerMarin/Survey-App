@@ -19,7 +19,7 @@
                     </span>
                 </div>
                 <div class="c-modal__body">
-                    <form class="c-card__body formAjax" method="post" action="~/Preguntas/Create">
+                    <form method="post" action="~/Preguntas/Create">
                         <div class="row">
                             <div class="c-field u-mb-small col-12">
                                 <label class="c-field__label" for="Descripcion">Descripcion</label>
@@ -40,12 +40,12 @@
                             <div class="c-field u-mb-small col-12">
                                 @Html.LabelFor(model => model.IdEncuesta, "IdEncuesta", htmlAttributes: new { @class = "c-field u-mb-small col-12 c-field__label" })
                                 @Html.DropDownList("IdEncuesta", null, htmlAttributes: new { @class = "c-field u-mb-small col-12 c-field__label c-input" })
-                                @Html.ValidationMessageFor(model => model.IdEncuesta, "", new { @class = "text-danger" })                                
+                                @Html.ValidationMessageFor(model => model.IdEncuesta, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="u-text-center">
-                            @Html.ActionLink("Regresar", "Index", new { d =Id }, new { @class = "c-btn c-btn--success" })
-                            <button class="c-btn c-btn--info c-btn btnAjax" type="submit">
+                            @Html.ActionLink("Regresar", "Index", new { d = Id }, new { @class = "c-btn c-btn--success" })
+                            <button class="c-btn c-btn--info" type="submit">
                                 Guardar
                                 <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
                             </button>
@@ -56,5 +56,15 @@
             </div><!-- // .c-modal__content -->
         </div><!-- // .c-modal__dialog -->
     </div>
+}
+
+@if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
+{
+    <script type="text/javascript">
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[3].className += " is-active";
+    </script>
+
 }
 

@@ -1,5 +1,6 @@
-﻿@model PagedList.IPagedList<Model.DetalleEncuesta>
+﻿@model PagedList.IPagedList<Model.Resultados>
 @using PagedList.Mvc;
+
 @{
     ViewBag.Title = "Index";
 }
@@ -7,11 +8,10 @@
 <table class="c-table c-table--highlight u-mb-small">
     <caption class="c-table__title">
         <div class="row">
-            <div class="col-md-6">
-                Configuracion <small>20</small>
-                @Html.ActionLink("Agregar", "Create", new { }, new { @class = "c-btn c-btn--info " })
+            <div class="col-md-4">
+                Resultados<small>20</small>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="c-field has-addon-right">
                     <input class="c-input" id="txtBuscar" type="text" placeholder="Buscar..." value="@ViewBag.Buscar">
                     <button id="btnBuscar" type="button" class="c-btn c-btn--info c-field__addon">
@@ -25,50 +25,43 @@
     <thead class="c-table__head c-table__head--slim">
         <tr>
             <th class="c-table__cell c-table__cell--head">
-                @Html.DisplayNameFor(model => model.FirstOrDefault().FechaInicio)
+               Hora de Inicio
             </th>
             <th class="c-table__cell c-table__cell--head">
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Fechafinal)
+               Hora Final
             </th>
             <th class="c-table__cell c-table__cell--head">
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Estado)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Fecha)
             </th>
             <th class="c-table__cell c-table__cell--head">
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Areas)
+                Nombre de Usuario
             </th>
             <th class="c-table__cell c-table__cell--head">
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Categorias)
-            </th>
-            <th class="c-table__cell c-table__cell--head">
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Encuestas)
+                Tipo de Usuario
             </th>
             <th></th>
         </tr>
     </thead>
-    <tbody id="Configuracion">
+    <tbody id="ResultadosBuscados">
         @foreach (var item in Model)
         {
-            <tr class="c-table__row">
+            <tr>
                 <td class="c-table__cell">
-                    @Html.DisplayFor(modelItem => item.FechaInicio)
+                    @Html.DisplayFor(modelItem => item.Hora_Inicio)
                 </td>
                 <td class="c-table__cell">
-                    @Html.DisplayFor(modelItem => item.Fechafinal)
+                    @Html.DisplayFor(modelItem => item.Hora_Final)
                 </td>
                 <td class="c-table__cell">
-                    @Html.DisplayFor(modelItem => item.Estado)
+                    @Html.DisplayFor(modelItem => item.Fecha)
                 </td>
                 <td class="c-table__cell">
-                    @Html.DisplayFor(modelItem => item.Areas.Nombre)
+                    @Html.DisplayFor(modelItem => item.Usuarios.NombreUsuario)
                 </td>
                 <td class="c-table__cell">
-                    @Html.DisplayFor(modelItem => item.Categorias.Nombre)
+                    @Html.DisplayFor(modelItem => item.Usuarios.TipoUsuario)
                 </td>
-                <td class="c-table__cell">
-                    @Html.DisplayFor(modelItem => item.Encuestas.Titulo)
-                </td>
-                <td>
-                    @Html.ActionLink(" Edit", "Edit", new { id = item.Id }, new { @class = "fa fa-pencil-square-o u-mr-xsmall c-btn c-btn--success " })
+                <td class="c-table__cell u-text-right">
                     @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, new { @class = "fa fa-trash-o u-mr-xsmall c-btn c-btn--danger" })
                 </td>
             </tr>
@@ -82,14 +75,6 @@
 <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
 </div>
-
-<script>
-    var elemento = document.getElementsByClassName("c-sidebar__link");
-    elemento[0].classList.remove("is-active");
-    elemento[7].className += " is-active";
-
-</script>
-
 
 <div class="c-modal c-modal--large modal fade ocultarDespues2" id="modal32" tabindex="-1" role="dialog" aria-labelledby="modal32" data-backdrop="static">
     <div class="c-modal__dialog modal-dialog" role="document">
@@ -191,63 +176,50 @@
                         </button>
                     </div>
                 </form>
-
             </div>
         </div><!-- // .c-modal__content -->
     </div><!-- // .c-modal__dialog -->
 </div>
 
+
 @section scripts
 {
-
     <script>
-        var strFiltro = "";
-        var strValOrder = "";
-        $(document).ready(function () {
-            cargaTabla("IdUsuario", "");
-        });
-        function cargaTabla(val, valOrder) {
-            if (val.length > 0) {
-                strFiltro = val;
-                val = "/?val=" + val;
-            }
-            if (valOrder.length > 0) {
-                strValOrder = valOrder;
-                valOrder = "valSearch=" + valOrder;
-                if (val.length < 1)
-                    valOrder = "/?" + valOrder;
-                else
-                    valOrder = "&" + valOrder;
-            }
-
+    function buscarArea(consulta){
+    $.ajax({
+    url: "@Url.Action("BuscarResultados", "Resultados")",
+    type: 'POST',
+    dataType:'html',
+    data:{consulta:consulta},
+    })
+    .done(function(respuesta){
+        $("#ResultadosBuscados").html(respuesta);
+    })
+    .fail(function(){
+    console.log("error");
+    })
+    }
+    $(document).on('keyup', "#txtBuscar", function () {
+    //cargaTabla(permiteOrdenar, $("#txtBuscar").val());
+    var valor = $("#txtBuscar").val();
+    if (valor != "") {
+        buscarArea(valor);
 
     }
+    else {
+        buscarArea();
 
-        function buscarConfiguracion(consulta)
-        {
-        $.ajax({
-            url: "@Url.Action("BuscarConfiguracion", "DetalleEncuestas")",
-            type: 'POST',
-            dataType:'html',
-            data:{consulta:consulta},
-        })
-        .done(function(respuesta){
-            $("#Configuracion").html(respuesta);
-        })
-        .fail(function(){
-        console.log("error");
-        })
-        }
+    }
+    });
 
-        $(document).on('keyup', "#txtBuscar", function () {
-            //cargaTabla(permiteOrdenar, $("#txtBuscar").val());
-            var valor = $("#txtBuscar").val();
-                if (valor != "") {
-                    buscarConfiguracion(valor);
-                }
-                else {
-                     buscarConfiguracion();
-                }
-         });
     </script>
+
 }
+
+
+
+<script type="text/javascript">
+    var elemento = document.getElementsByClassName("c-sidebar__link");
+    elemento[0].classList.remove("is-active");
+    elemento[8].className += " is-active";
+</script>

@@ -18,7 +18,7 @@
                     </span>
                 </div>
                 <div class="c-modal__body">
-                    <form >
+                    <form>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="c-field u-mb-small">
@@ -38,28 +38,38 @@
                                     </div>
                                 </div>
                             </div>
-                         </div>
-                            <div class="row">
-                                <div class="c-field u-mb-small col-12">
-                                    <label class="c-field__label" for="Estado">Estado</label>
-                                    <select name="Estado" class="c-input" id="Estado<">
-                                        <!-- Opciones de la lista -->
-                                        <option value="Activo">Activo</option>
-                                        <option value="Inactivo" selected>Inactivo</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="c-field u-mb-small col-12">
+                                <label class="c-field__label" for="Estado">Estado</label>
+                                <select name="Estado" class="c-input" id="Estado<">
+                                    <!-- Opciones de la lista -->
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo" selected>Inactivo</option>
+                                </select>
                             </div>
-                            <div class="u-text-center">
-                                @Html.ActionLink("Regresar", "Index", new { }, new { @class = "c-btn c-btn--success" })
-                                <button class="c-btn c-btn--info" type="submit">
-                                    Guardar
-                                    <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
-                                </button>
-                            </div>
-</form>
+                        </div>
+                        <div class="u-text-center">
+                            @Html.ActionLink("Regresar", "Index", new { }, new { @class = "c-btn c-btn--success" })
+                            <button class="c-btn c-btn--info" type="submit">
+                                Guardar
+                                <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
+                            </button>
+                        </div>
+                    </form>
 
                 </div>
             </div><!-- // .c-modal__content -->
         </div><!-- // .c-modal__dialog -->
     </div>
+}
+
+@if (HttpContext.Current.Session["TipoUsuario"].Equals("Coordinador"))
+{
+    <script type="text/javascript">
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[1].className += " is-active";
+    </script>
+
 }

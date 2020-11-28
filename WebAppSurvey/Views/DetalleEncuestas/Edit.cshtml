@@ -12,13 +12,13 @@
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
             <div class="c-modal__header u-bg-primary">
-                <h3 class="c-modal__title">Categorias</h3>
+                <h3 class="c-modal__title">Configuracion</h3>
                 <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
                     <i class="fa fa-close"></i>
                 </span>
             </div>
             <div class="c-modal__body">
-                <form  method="post" action="~/Preguntas/Edit">
+                <form method="post" action="~/Preguntas/Edit">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="c-field u-mb-small">
@@ -107,6 +107,13 @@
         });
 
 
+
+    </script>
+
+    <script>
+        var elemento = document.getElementsByClassName("c-sidebar__link");
+        elemento[0].classList.remove("is-active");
+        elemento[7].className += " is-active";
 
     </script>
 
