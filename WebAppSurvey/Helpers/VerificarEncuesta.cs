@@ -11,8 +11,6 @@ namespace WebAppSurvey.Helpers
         SystemEncuestas db = new SystemEncuestas();
         public int IDEncuesta(int idUsuario, int IDEncuesta) {
             var encuesta = false;
-            //var idResultado = db.Resultados.Where(c => c.IdUsuario == idUsuario).Select(p => p.Id).FirstOrDefault();
-            //var idResultado = db.DetalleResultado.Where(c => c.IdEncuesta ==IDEncuesta).Select(p => p.IdResultado).FirstOrDefault();
             var idUsuarios = db.Resultados.Where(c => c.IdUsuario == idUsuario).Select(p => p.Id).ToList();
             var Tipousuario = db.Usuarios.Where(c => c.Id == idUsuario).Select(p => p.TipoUsuario).FirstOrDefault();
             for (int i=0;i<idUsuarios.Count;i++) {
