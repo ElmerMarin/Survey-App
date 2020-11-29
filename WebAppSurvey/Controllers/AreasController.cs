@@ -152,7 +152,7 @@ namespace WebAppSurvey.Controllers
             catch (Exception)
             {
 
-                return RedirectToAction("Error");
+                return RedirectToAction("Errores");
             }
             return RedirectToAction("Index");
         }
