@@ -209,7 +209,7 @@ namespace WebAppSurvey.Controllers
             
             var objUsu = db.Usuarios.Where(c => c.Correo == CorreoElectronico).FirstOrDefault();
             int id = 0;
-            string strMensaje = "El correo no se encuentra registrado.";
+            string strMensaje = "El correo no se encuentra Registrado.";
             if (objUsu != null)
             {
                 string strToken = objUsu.Id.ToString() + objUsu.Correo;
