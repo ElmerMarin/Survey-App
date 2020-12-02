@@ -11,11 +11,11 @@
                 <h1 class="u-h3 u-text-center u-mb-zero" style="color:white;font-family: HomeTown,serif;">Sistema de Encuestas</h1>
             </header>
 
-            <form class="c-card__body formAjax" method="post" action="~/Acceso/Registrarme">
+            <form class="c-card__body formAjax" method="post" action="~/Acceso/Registrarme"  name='miRegistro' id='miRegistro'>
                 <div class="row">
                     <div class="c-field u-mb-small col-4">
                         <label class="c-field__label" for="Dni">Dni</label>
-                        <input class="c-input" type="text" id="Dni" required="required" name="Dni" placeholder="Dni">
+                        <input class="c-input" type="text" id="Dni" required="required" name="Dni" placeholder="Dni" maxlength="8">
                     </div>
                     <div class="c-field u-mb-small col-4">
                         <label class="c-field__label" for="Nombres">Nombres</label>
@@ -43,7 +43,7 @@
                 <div class="row">
                     <div class="c-field u-mb-small col-4">
                         <label class="c-field__label" for="Edad">Edad</label>
-                        <input class="c-input" type="text" id="Edad" required="required" name="Edad" placeholder="Edad">
+                        <input class="c-input" type="text" id="Edad" required="required" name="Edad" placeholder="Edad" maxlength="2">
                     </div>
 
                     <div class="c-field u-mb-small col-4">
@@ -56,7 +56,7 @@
                     </div>
                     <div class="c-field u-mb-small col-4">
                         <label class="c-field__label" for="telefono">Telefono</label>
-                        <input class="c-input" type="text" id="telefono" required="required" name="telefono" placeholder="Telefono">
+                        <input class="c-input" type="text" id="telefono" required="required" name="telefono" placeholder="Telefono" maxlength="9">
                     </div>
                 </div>
                 <div class="row">
@@ -89,6 +89,34 @@
 
 </body>
 
+<script>
 
+    miFormulario = document.querySelector('#miRegistro');
+    miFormulario.Dni.addEventListener('keypress', function (e) {
+        if (!soloNumeros(event)) {
+            e.preventDefault();
+        }
+    })
+
+    miFormulario.Edad.addEventListener('keypress', function (e) {
+        if (!soloNumeros(event)) {
+            e.preventDefault();
+        }
+    })
+
+    miFormulario.telefono.addEventListener('keypress', function (e) {
+        if (!soloNumeros(event)) {
+            e.preventDefault();
+        }
+    })
+
+    //Solo permite introducir numeros.
+    function soloNumeros(e) {
+        var key = e.charCode;
+        console.log(key);
+        return key >= 48 && key <= 57;
+    }
+
+</script>
 
 
